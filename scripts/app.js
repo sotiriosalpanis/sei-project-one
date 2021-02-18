@@ -3,7 +3,7 @@ function init() {
   const grid = document.querySelector('.grid')
   // console.log(grid)
   
-  const gameSpeed = 1000
+  const gameSpeed = 100
   
   const gridWidth = 10
   const gridHeight = 20
@@ -16,7 +16,7 @@ function init() {
   // let tetrominoPosition = Math.floor(Math.random() * gridWidth)
   let tetrominoPosition = 0
 
-  function createGrid(tetrominoPosition) {
+  function createGrid() {
     console.log(tetrominoPosition)
     for (let i = 0; i < cellCount; i++ ) {
       const cell = document.createElement('div')
@@ -29,13 +29,13 @@ function init() {
 
 
 
-  createGrid(tetrominoPosition)
+  createGrid()
 
-  function addTetromino(position) {
-    cells[position].classList.add(tetrominoClass)
+  function addTetromino(tetrominoPosition) {
+    cells[tetrominoPosition].classList.add(tetrominoClass)
   }
-  function removeTetromino(position) {
-    cells[position].classList.remove(tetrominoClass)
+  function removeTetromino(tetrominoPosition) {
+    cells[tetrominoPosition].classList.remove(tetrominoClass)
   }
 
   function gravity() {
@@ -52,16 +52,23 @@ function init() {
   
   let gravityCount = 0
 
+  let dropping
+  
   function dropTetromino() {
+    addTetromino(tetrominoPosition)
+
     const dropTimerId = setInterval(() => {  
+      
       if (gravityCount < gridHeight - 1) {
         gravity()
         gravityCount++
-        console.log(gravityCount)
       } else {
         clearInterval(dropTimerId)
+        dropping = false
+        console.log(dropping)
       }
     },gameSpeed)
+    return dropping
   }
 
   dropTetromino()
