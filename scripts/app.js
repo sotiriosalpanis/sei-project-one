@@ -27,9 +27,10 @@ function init() {
     }
   }
 
-
-
   createGrid()
+
+
+  console.log(cells.some(cell => cell.classList.contains('active')))
 
   function addTetromino(tetrominoPosition) {
     cells[tetrominoPosition].classList.add(tetrominoClass)
@@ -39,45 +40,96 @@ function init() {
   }
 
 
+  // let gravityCount
+  // function dropTetromino() {
+  //   gravityCount = 0
+  //   tetrominoPosition = startingPosition
+  //   addTetromino(tetrominoPosition)
+  //   const dropTimerId = setInterval(() => {  
+  //     if (gravityCount < gridHeight - 1) {
+  //       removeTetromino(tetrominoPosition)
+  //       const currentPosition = tetrominoPosition
+  //       const nextSpace = tetrominoPosition += gridWidth
+  //       if (cells[nextSpace].classList.contains(tetrominoClass) === true){
+  //         console.log('Check 2')
+  //         cells[currentPosition].classList.add(tetrominoClass)
+  //         console.log(cells[currentPosition].innerHTML)
+  //         clearInterval(dropTimerId)
+  //       } else {
+  //         addTetromino(nextSpace)
+  //       } 
+  //       gravityCount++
+  //     } else {
+  //       console.log('Check 4',gravityCount)
+  //       clearInterval(dropTimerId)
+  //     }
+  //   },gameSpeed)
+  // }
+
   let gravityCount
   function dropTetromino() {
-    gravityCount = 0
     tetrominoPosition = startingPosition
-    addTetromino(tetrominoPosition)
+    gravityCount = 0
     const dropTimerId = setInterval(() => {  
       if (gravityCount < gridHeight - 1) {
+        addTetromino(tetrominoPosition)
         removeTetromino(tetrominoPosition)
-        const currentPosition = tetrominoPosition
+        // const currentPosition = tetrominoPosition
         const nextSpace = tetrominoPosition += gridWidth
-        if (cells[nextSpace].classList.contains(tetrominoClass) === true){
+        console.log('Check 1', nextSpace, tetrominoPosition)
+        if (cells[nextSpace].classList.contains(tetrominoClass) === true  || (nextSpace + gridWidth) > cellCount - 1){
           console.log('Check 2')
-          cells[currentPosition].classList.add(tetrominoClass)
-          console.log(cells[currentPosition].innerHTML)
-          clearInterval(dropTimerId)
+          addTetromino(nextSpace)
+          cells[nextSpace].classList.add(tetrominoClass)
+          console.log(cells[nextSpace].innerHTML)
+          tetrominoPosition = startingPosition
+          gravityCount = 0
         } else {
+          console.log('Check 3',nextSpace,nextSpace > cellCount - 1)
           addTetromino(nextSpace)
         } 
         gravityCount++
-      } else {
-        console.log('Check 4',gravityCount)
-        clearInterval(dropTimerId)
       }
     },gameSpeed)
   }
 
-
-  let numDrops = 0
-  const repeatDropId = setInterval(() => {
-    if (numDrops <= 5) {
-      console.log('Number of drops: ', numDrops)
-      dropTetromino()
-      numDrops++
-    } else {
-      clearInterval(repeatDropId)
-    }
-  },10000)
-
   dropTetromino()
+
+
+  // ? every second active piece drops one space
+  // ? only one active piece at a time - use a class
+  // ? active piece begins middle of the top of the grid
+  // ? piece becomes inactive when it reaches the bottom OR is blocked by another piece
+  // ? new piece added when previous stops
+  // ? pieces stop dropping if
+    // ? No space at the top of the grid
+    // ? The Stop button is pressed
+
+  // setInterval
+    // check cells for active class if not present:
+      // add new piece middle top with active class
+      // drop until can't move
+      // remove active class + reset position
+  
+  // ! clearinterval if starting position has tetronimo class
+  // ! clearinterval if stop button pressed
+
+
+
+
+
+  // let numDrops = 0
+  // const repeatDropId = setInterval(() => {
+  //   if (numDrops <= 5) {
+  //     console.log('Number of drops: ', numDrops)
+  //     dropTetromino()
+  //     numDrops++
+  //   } else {
+  //     clearInterval(repeatDropId)
+  //   }
+  // },10000)
+
+  
 
 
   document.addEventListener('keyup', handleKeyUp)
