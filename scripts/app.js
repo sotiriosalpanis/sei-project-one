@@ -41,9 +41,11 @@ function init() {
     tetrominoPosition = startingPosition
     gravityCount = 0
     const dropTimerId = setInterval(() => {
-      if (cells[startingPosition].classList.contains(tetrominoClass)) {
+      if (cells[startingPosition].classList.contains(tetrominoClass) || grid.classList.contains('stop-game')) {
         console.log('Game stopped')
         clearInterval(dropTimerId)
+        grid.classList.remove('stop-game')
+        cells.forEach(cell => cell.classList.remove(tetrominoClass))
       } else if (gravityCount <= gridHeight - 1) {
         addTetromino(tetrominoPosition)
         removeTetromino(tetrominoPosition)
@@ -79,30 +81,8 @@ function init() {
     // ? No space at the top of the grid
     // ? The Stop button is pressed
 
-  // setInterval
-    // check cells for active class if not present:
-      // add new piece middle top with active class
-      // drop until can't move
-      // remove active class + reset position
   
   // ! clearinterval if starting position has tetronimo class
-  // ! clearinterval if stop button pressed
-
-
-
-
-
-  // let numDrops = 0
-  // const repeatDropId = setInterval(() => {
-  //   if (numDrops <= 5) {
-  //     console.log('Number of drops: ', numDrops)
-  //     dropTetromino()
-  //     numDrops++
-  //   } else {
-  //     clearInterval(repeatDropId)
-  //   }
-  // },10000)
-
   
 
 
@@ -122,6 +102,25 @@ function init() {
     }
     addTetromino(tetrominoPosition)
   }
+
+  // Buttons!
+  const startButton = document.querySelector('#play')
+  // console.log('Start button', startButton)
+
+  const stopButton = document.querySelector('#stop')
+  // console.log('stop button', stopButton)
+
+  startButton.addEventListener('click',dropTetromino)
+
+  stopButton.addEventListener('click',stopGrid)
+
+  function stopGrid(){
+    if (window.confirm('Are you sure you want to stop the game? All progress will be lost')) {
+      grid.classList.add('stop-game')
+      console.log('Stop button',grid.classList)
+    }
+  }
+
 
 
 
