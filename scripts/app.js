@@ -71,29 +71,37 @@ function init() {
     tetrominoPosition = startingPosition
     gravityCount = 0
     const dropTimerId = setInterval(() => {  
-      if (gravityCount < gridHeight - 1) {
+      if (gravityCount <= gridHeight - 1) {
+        console.log('Check 0', tetrominoPosition)
         addTetromino(tetrominoPosition)
         removeTetromino(tetrominoPosition)
-        // const currentPosition = tetrominoPosition
+        const currentPosition = tetrominoPosition
         const nextSpace = tetrominoPosition += gridWidth
-        console.log('Check 1', nextSpace, tetrominoPosition)
-        if (cells[nextSpace].classList.contains(tetrominoClass) === true  || (nextSpace + gridWidth) > cellCount - 1){
+        // console.log('Check 1', nextSpace, (nextSpace + gridWidth) > cellCount - 1)
+        if ((nextSpace + gridWidth) > cellCount - 1) {
           console.log('Check 2')
           addTetromino(nextSpace)
           cells[nextSpace].classList.add(tetrominoClass)
           console.log(cells[nextSpace].innerHTML)
           tetrominoPosition = startingPosition
           gravityCount = 0
-        } else {
-          console.log('Check 3',nextSpace,nextSpace > cellCount - 1)
+        } else if (cells[nextSpace + gridWidth].classList.contains(tetrominoClass) === true) {
           addTetromino(nextSpace)
+          cells[nextSpace].classList.add(tetrominoClass)
+          console.log(cells[nextSpace].innerHTML)
+          tetrominoPosition = startingPosition
+          gravityCount = 0
+        } else {
+          addTetromino(nextSpace)
+          console.log('Check 3')
         } 
         gravityCount++
+        console.log(gravityCount)
       }
     },gameSpeed)
   }
 
-  dropTetromino()
+  // dropTetromino()
 
 
   // ? every second active piece drops one space
