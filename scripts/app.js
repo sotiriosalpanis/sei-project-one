@@ -14,6 +14,7 @@ function init() {
 
   const tetrominoClass = 'tetromino'
   let tetrominoPosition = Math.floor((gridWidth / 2) - 1)
+  const startingPosition = Math.floor((gridWidth / 2) - 1)
 
 
   function createGrid() {
@@ -40,24 +41,34 @@ function init() {
 
   let gravityCount = 0
   function dropTetromino() {
+    tetrominoPosition = startingPosition
     addTetromino(tetrominoPosition)
     const dropTimerId = setInterval(() => {  
       if (gravityCount < gridHeight - 1) {
         removeTetromino(tetrominoPosition)
         const nextSpace = tetrominoPosition += gridWidth
         if (cells[nextSpace].classList.contains(tetrominoClass) === true){
-          console.log(dropTimerId)
           clearInterval(dropTimerId)
         } else {
           addTetromino(nextSpace)
         } 
         gravityCount++
       } else {
-        console.log(dropTimerId)
         clearInterval(dropTimerId)
       }
     },gameSpeed)
   }
+
+  let numDrops = 0
+  const repeatDropId = setInterval(() => {
+    if (numDrops < 5) {
+      console.log('Number of drops: ', numDrops)
+      dropTetromino()
+      numDrops++
+    } else {
+      clearInterval(repeatDropId)
+    }
+  },10000)
 
   dropTetromino()
 
