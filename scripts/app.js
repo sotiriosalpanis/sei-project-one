@@ -47,6 +47,7 @@ function init() {
     tetrominoPosition = startingPosition
     gravityCount = 0
     const dropTimerId = setInterval(() => {
+      console.log('Start button clicked')
       if (cells[startingPosition].classList.contains(tetrominoClass) || grid.classList.contains('stop-game')) {
         console.log('Game stopped')
         clearInterval(dropTimerId)
@@ -71,6 +72,7 @@ function init() {
           addTetromino(nextSpace)
         } 
         gravityCount++
+        console.log(gravityCount)
       }
     },gameSpeed)
   }
@@ -98,7 +100,7 @@ function init() {
 
   // Buttons!
   const startButton = document.querySelector('#play')
-  // console.log('Start button', startButton)
+  console.log('Start button', startButton)
 
   const stopButton = document.querySelector('#stop')
   // console.log('stop button', stopButton)
