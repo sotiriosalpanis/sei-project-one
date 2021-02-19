@@ -39,29 +39,38 @@ function init() {
   }
 
 
-  let gravityCount = 0
+  let gravityCount
   function dropTetromino() {
+    gravityCount = 0
     tetrominoPosition = startingPosition
     addTetromino(tetrominoPosition)
     const dropTimerId = setInterval(() => {  
       if (gravityCount < gridHeight - 1) {
+        // console.log('Position before',tetrominoPosition)
         removeTetromino(tetrominoPosition)
+        const currentPosition = tetrominoPosition
         const nextSpace = tetrominoPosition += gridWidth
+        // console.log('Position after',tetrominoPosition)
         if (cells[nextSpace].classList.contains(tetrominoClass) === true){
+          console.log('Check 2')
+          cells[currentPosition].classList.add(tetrominoClass)
+          console.log(cells[currentPosition].innerHTML)
           clearInterval(dropTimerId)
         } else {
           addTetromino(nextSpace)
         } 
         gravityCount++
       } else {
+        console.log('Check 4',gravityCount)
         clearInterval(dropTimerId)
       }
     },gameSpeed)
   }
 
+
   let numDrops = 0
   const repeatDropId = setInterval(() => {
-    if (numDrops < 5) {
+    if (numDrops <= 5) {
       console.log('Number of drops: ', numDrops)
       dropTetromino()
       numDrops++
