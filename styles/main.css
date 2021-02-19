@@ -6,13 +6,17 @@
   display: flex;
   flex-wrap: wrap;
   
-  width: 60%;
+  /* width: 60%; */
   margin: 0 auto;
+
+  height: 500px;
+  width: 250px
 }
 
 .cell {
-  height: 30px;
-  width: calc(10% - 2px);
+  height: 25px;
+  /* width: calc(10% - 2px); */
+  width: 23px;
 }
 
 .tetromino {
