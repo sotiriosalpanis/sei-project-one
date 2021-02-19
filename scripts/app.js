@@ -84,11 +84,11 @@ function init() {
 
   function handleKeyUp(event) {
     const key = event.keyCode
-    // 39 is right. 37 is left
-    if (key === 39 && tetrominoPosition % gridWidth !== gridWidth - 1 && !cells[tetrominoPosition + 1].classList.contains(tetrominoClass)) {
+    // * 39 is right. 37 is left
+    if (key === 39 && tetrominoPosition % gridWidth !== gridWidth - 1 && !cells[tetrominoPosition + 1].classList.contains(tetrominoClass) && tetrominoPosition + gridWidth <= cellCount - 1) {
       removeTetromino(tetrominoPosition)
       tetrominoPosition++
-    } else if (key === 37 && tetrominoPosition % gridWidth !== 0 && !cells[tetrominoPosition - 1].classList.contains(tetrominoClass)) {
+    } else if (key === 37 && tetrominoPosition % gridWidth !== 0 && !cells[tetrominoPosition - 1].classList.contains(tetrominoClass) && tetrominoPosition + gridWidth <= cellCount - 1) {
       removeTetromino(tetrominoPosition)
       tetrominoPosition --
     } else {
