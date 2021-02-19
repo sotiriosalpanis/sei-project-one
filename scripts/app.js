@@ -46,11 +46,9 @@ function init() {
     addTetromino(tetrominoPosition)
     const dropTimerId = setInterval(() => {  
       if (gravityCount < gridHeight - 1) {
-        // console.log('Position before',tetrominoPosition)
         removeTetromino(tetrominoPosition)
         const currentPosition = tetrominoPosition
         const nextSpace = tetrominoPosition += gridWidth
-        // console.log('Position after',tetrominoPosition)
         if (cells[nextSpace].classList.contains(tetrominoClass) === true){
           console.log('Check 2')
           cells[currentPosition].classList.add(tetrominoClass)
@@ -86,11 +84,11 @@ function init() {
 
   function handleKeyUp(event) {
     const key = event.keyCode
-    console
-    if (key === 39 && tetrominoPosition % gridWidth !== gridWidth - 1) {
+    // 39 is right. 37 is left
+    if (key === 39 && tetrominoPosition % gridWidth !== gridWidth - 1 && !cells[tetrominoPosition + 1].classList.contains(tetrominoClass)) {
       removeTetromino(tetrominoPosition)
       tetrominoPosition++
-    } else if (key === 37 && tetrominoPosition % gridWidth !== 0) {
+    } else if (key === 37 && tetrominoPosition % gridWidth !== 0 && !cells[tetrominoPosition - 1].classList.contains(tetrominoClass)) {
       removeTetromino(tetrominoPosition)
       tetrominoPosition --
     } else {
