@@ -5,21 +5,31 @@
 .grid {
   display: flex;
   flex-wrap: wrap;
-  
-  /* width: 60%; */
   margin: 0 auto;
 
-  height: 500px;
-  width: 250px
+  /* height: 500px;
+  width: 250px */
 }
 
-.cell {
-  height: 25px;
+/* .cell {
+  height: 23px;
   /* width: calc(10% - 2px); */
   width: 23px;
-}
+} */
 
 .tetromino {
   background-color: red;
 }
 
+.next {
+  display: block;
+}
+
+.shape {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* .square {
+  
+} */

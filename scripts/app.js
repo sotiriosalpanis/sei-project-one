@@ -9,6 +9,8 @@ function init() {
   const cellCount = gridWidth * gridHeight
 
   const cells = []
+  const cellSize = 25
+
 
 
   const tetrominoClass = 'tetromino'
@@ -20,8 +22,12 @@ function init() {
     for (let i = 0; i < cellCount; i++ ) {
       const cell = document.createElement('div')
       cell.textContent = i
-      grid.appendChild(cell)
       cell.classList.add('cell')
+      cell.style.width = `${cellSize - 2}px`
+      cell.style.height = `${cellSize - 2}px`
+      grid.style.width = `${gridWidth * cellSize}px`
+      grid.style.height = `${gridHeight * cellSize}px`
+      grid.appendChild(cell)
       cells.push(cell)
     }
   }
@@ -69,19 +75,6 @@ function init() {
     },gameSpeed)
   }
 
-  // dropTetromino()
-
-
-  // ? every second active piece drops one space
-  // ? only one active piece at a time - use a class
-  // ? active piece begins middle of the top of the grid
-  // ? piece becomes inactive when it reaches the bottom OR is blocked by another piece
-  // ? new piece added when previous stops
-  // ? pieces stop dropping if
-    // ? No space at the top of the grid
-    // ? The Stop button is pressed
-
-  
   // ! clearinterval if starting position has tetronimo class
   
 
@@ -121,9 +114,59 @@ function init() {
     }
   }
 
+  // Shapes!
+  // Array of shapes
+    // each shape an object
+      // Object properties - 
+        // width
+        // height
+        // blank spaces ie not class tetronimo
+        // color
+  // ? Rotation https://www.w3schools.com/jsref/prop_style_transform.asp ?
+
+  const shapes = []
+  
+  const square = {
+    name: 'square',
+    width: 2,
+    height: 2,
+    colour: 'green'
+  }
+
+  const bar = {
+    name: 'bar',
+    width: 1,
+    height: 4,
+    colour: 'orange'
+  }
+
+  shapes.push(square)
+  shapes.push(bar)
+
+  const next = document.querySelector('.next')
 
 
+  function createShape(shapeIndex) {
+    const shapeGrid = document.createElement('div')
+    shapeGrid.classList.add('shape')
+    shapeGrid.style.width = `${shapes[shapeIndex].width * cellSize}px`
+    shapeGrid.style.height = `${shapes[shapeIndex].height * cellSize}px`
+    const shapeCellCount = shapes[shapeIndex].width * shapes[shapeIndex].height
+    for (let i = 0; i < shapeCellCount; i++) {
+      const shapeCell = document.createElement('div')
+      shapeCell.textContent = i
+      shapeCell.classList.add(tetrominoClass)
+      shapeCell.classList.add(shapes[shapeIndex].name)
+      shapeCell.style.backgroundColor = `${shapes[shapeIndex].colour}`
+      shapeCell.style.width = `${cellSize - 2}px`
+      shapeCell.style.height = `${cellSize - 2}px`
+      shapeGrid.appendChild(shapeCell)
+    }
+    next.appendChild(shapeGrid)
+  }
 
+  createShape(1)
+  createShape(0)
 
 
 
