@@ -1,9 +1,8 @@
 function init() {
   
   const grid = document.querySelector('.grid')
-  // console.log(grid)
   
-  const gameSpeed = 500
+  const gameSpeed = 100
   
   const gridWidth = 10
   const gridHeight = 20
@@ -29,9 +28,6 @@ function init() {
 
   createGrid()
 
-
-  console.log(cells.some(cell => cell.classList.contains('active')))
-
   function addTetromino(tetrominoPosition) {
     cells[tetrominoPosition].classList.add(tetrominoClass)
   }
@@ -40,63 +36,33 @@ function init() {
   }
 
 
-  // let gravityCount
-  // function dropTetromino() {
-  //   gravityCount = 0
-  //   tetrominoPosition = startingPosition
-  //   addTetromino(tetrominoPosition)
-  //   const dropTimerId = setInterval(() => {  
-  //     if (gravityCount < gridHeight - 1) {
-  //       removeTetromino(tetrominoPosition)
-  //       const currentPosition = tetrominoPosition
-  //       const nextSpace = tetrominoPosition += gridWidth
-  //       if (cells[nextSpace].classList.contains(tetrominoClass) === true){
-  //         console.log('Check 2')
-  //         cells[currentPosition].classList.add(tetrominoClass)
-  //         console.log(cells[currentPosition].innerHTML)
-  //         clearInterval(dropTimerId)
-  //       } else {
-  //         addTetromino(nextSpace)
-  //       } 
-  //       gravityCount++
-  //     } else {
-  //       console.log('Check 4',gravityCount)
-  //       clearInterval(dropTimerId)
-  //     }
-  //   },gameSpeed)
-  // }
-
   let gravityCount
   function dropTetromino() {
     tetrominoPosition = startingPosition
     gravityCount = 0
-    const dropTimerId = setInterval(() => {  
-      if (gravityCount <= gridHeight - 1) {
-        console.log('Check 0', tetrominoPosition)
+    const dropTimerId = setInterval(() => {
+      if (cells[startingPosition].classList.contains(tetrominoClass)) {
+        console.log('Game stopped')
+        clearInterval(dropTimerId)
+      } else if (gravityCount <= gridHeight - 1) {
         addTetromino(tetrominoPosition)
         removeTetromino(tetrominoPosition)
-        const currentPosition = tetrominoPosition
+        // const currentPosition = tetrominoPosition
         const nextSpace = tetrominoPosition += gridWidth
-        // console.log('Check 1', nextSpace, (nextSpace + gridWidth) > cellCount - 1)
         if ((nextSpace + gridWidth) > cellCount - 1) {
-          console.log('Check 2')
           addTetromino(nextSpace)
           cells[nextSpace].classList.add(tetrominoClass)
-          console.log(cells[nextSpace].innerHTML)
           tetrominoPosition = startingPosition
           gravityCount = 0
         } else if (cells[nextSpace + gridWidth].classList.contains(tetrominoClass) === true) {
           addTetromino(nextSpace)
           cells[nextSpace].classList.add(tetrominoClass)
-          console.log(cells[nextSpace].innerHTML)
           tetrominoPosition = startingPosition
           gravityCount = 0
         } else {
           addTetromino(nextSpace)
-          console.log('Check 3')
         } 
         gravityCount++
-        console.log(gravityCount)
       }
     },gameSpeed)
   }
