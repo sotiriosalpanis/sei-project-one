@@ -169,13 +169,16 @@ function init() {
   const ell = new TetrominoShape('ell',3,2,'orange',[0,1])
   const  revEll = new TetrominoShape('revEll',3,2,'blue',[3,4])
   
-  bar.createShape()
-  square.createShape()
-  tee.createShape()
-  zed.createShape()
-  revZed.createShape()
-  ell.createShape()
-  revEll.createShape()
+  shapes.push(square)
+  shapes.push(bar)
+  shapes.push(tee)
+  shapes.push(zed)
+  shapes.push(revZed)
+  shapes.push(ell)
+  shapes.push(revEll)
+
+  shapes[Math.floor(Math.random() * shapes.length)].createShape()
+  console.log(shapes)
 
 
 
