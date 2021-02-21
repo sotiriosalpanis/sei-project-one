@@ -70,7 +70,8 @@ function init() {
         shapeGrid.appendChild(shapeCell)
       }
       next.appendChild(shapeGrid)
-      console.log(shapeGrid)
+      // console.log(shapeGrid)
+      return shapeGrid
     }
   }
 
@@ -90,37 +91,77 @@ function init() {
   shapes.push(ell)
   shapes.push(revEll)
 
-  shapes[Math.floor(Math.random() * shapes.length)].createShape()
+  const nextShape = shapes[Math.floor(Math.random() * shapes.length)].createShape()
+  console.log(nextShape)
 
-  function addTetromino(tetrominoPosition) {
-    cells[tetrominoPosition].classList.add(tetrominoClass)
+  // function addTetromino(tetrominoPosition) {
+  //   cells[tetrominoPosition].classList.add(tetrominoClass)
+  //   cells[tetrominoPosition + 1].classList.add(tetrominoClass)
+  // }
+  
+  // function removeTetromino(tetrominoPosition) {
+  //   cells[tetrominoPosition].classList.remove(tetrominoClass)
+  //   cells[tetrominoPosition + 1].classList.remove(tetrominoClass)
+  // }
+
+
+
+  function addTetromino(array) {
+    // console.log('Add: ',array)
+    array.forEach(cell => {
+      cells[cell].classList.add(tetrominoClass)
+    })
   }
-  function removeTetromino(tetrominoPosition) {
-    cells[tetrominoPosition].classList.remove(tetrominoClass)
+
+  function removeTetromino(array) {
+    // console.log('Remove: ',array)
+    array.forEach(cell => {
+      cells[cell].classList.remove(tetrominoClass)
+    })
   }
+
 
   let gravityCount
+
   function dropTetromino() {
-    tetrominoPosition = startingPosition
+    tetrominoPosition = [startingPosition,startingPosition + 1]
     gravityCount = 0
     const dropTimerId = setInterval(() => {
-      if (cells[startingPosition].classList.contains(tetrominoClass) || grid.classList.contains('stop-game')) {
+      if (cells[startingPosition].classList.contains('set') || grid.classList.contains('stop-game')) {
         console.log('Game stopped')
         clearInterval(dropTimerId)
         grid.classList.remove('stop-game')
         cells.forEach(cell => cell.classList.remove(tetrominoClass))
       } else if (gravityCount < gridHeight) {
+        console.log('Check 1', tetrominoPosition)
         addTetromino(tetrominoPosition)
-        console.log(tetrominoPosition,gravityCount)
         removeTetromino(tetrominoPosition)
-        // const currentPosition = tetrominoPosition
-        const nextSpace = tetrominoPosition += gridWidth
-        if ((nextSpace + gridWidth) > cellCount - 1 || cells[nextSpace + gridWidth].classList.contains(tetrominoClass) === true) {
-          addTetromino(nextSpace)
-          tetrominoPosition = startingPosition
+        const nextSpace = tetrominoPosition.map(cell => {
+          cell += gridWidth
+          return cell
+        })
+        console.log('Tetrominoposition', tetrominoPosition)
+        
+        if (tetrominoPosition.every(space => space + gridWidth > cellCount - 1) ) {
+          console.log('Check 2')
+          addTetromino(tetrominoPosition)
+          tetrominoPosition.forEach(cell => {
+            cells[cell].classList.add('set')
+          })
+          tetrominoPosition = [startingPosition,startingPosition + 1] 
           gravityCount = 0
+        } else if (tetrominoPosition.every(space => cells[space + gridWidth].classList.contains('set'))) {
+          console.log('Check 3')
+          addTetromino(tetrominoPosition)
+          tetrominoPosition.forEach(cell => {
+            cells[cell].classList.add('set')
+          })
+          tetrominoPosition = [startingPosition,startingPosition + 1] 
+          gravityCount = 0
+          
         } else {
           addTetromino(nextSpace)
+          tetrominoPosition = nextSpace
         } 
         gravityCount++
         console.log(gravityCount)
@@ -128,7 +169,7 @@ function init() {
     },gameSpeed)
   }
 
-  
+
 
   document.addEventListener('keyup', handleKeyUp)
 
