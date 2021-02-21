@@ -94,18 +94,6 @@ function init() {
   const nextShape = shapes[Math.floor(Math.random() * shapes.length)].createShape()
   console.log(nextShape)
 
-  // function addTetromino(tetrominoPosition) {
-  //   cells[tetrominoPosition].classList.add(tetrominoClass)
-  //   cells[tetrominoPosition + 1].classList.add(tetrominoClass)
-  // }
-  
-  // function removeTetromino(tetrominoPosition) {
-  //   cells[tetrominoPosition].classList.remove(tetrominoClass)
-  //   cells[tetrominoPosition + 1].classList.remove(tetrominoClass)
-  // }
-
-
-
   function addTetromino(array) {
     // console.log('Add: ',array)
     array.forEach(cell => {
@@ -123,8 +111,10 @@ function init() {
 
   let gravityCount
 
+  const startingArray = [startingPosition + gridWidth,startingPosition + gridWidth + 1,startingPosition + gridWidth + 2, startingPosition]
+
   function dropTetromino() {
-    tetrominoPosition = [startingPosition,startingPosition + 1]
+    tetrominoPosition = startingArray
     gravityCount = 0
     const dropTimerId = setInterval(() => {
       if (cells[startingPosition].classList.contains('set') || grid.classList.contains('stop-game')) {
@@ -133,30 +123,25 @@ function init() {
         grid.classList.remove('stop-game')
         cells.forEach(cell => cell.classList.remove(tetrominoClass))
       } else if (gravityCount < gridHeight) {
-        console.log('Check 1', tetrominoPosition)
         addTetromino(tetrominoPosition)
         removeTetromino(tetrominoPosition)
         const nextSpace = tetrominoPosition.map(cell => {
           cell += gridWidth
           return cell
         })
-        console.log('Tetrominoposition', tetrominoPosition)
-        
-        if (tetrominoPosition.every(space => space + gridWidth > cellCount - 1) ) {
-          console.log('Check 2')
+        if (tetrominoPosition.some(space => space + gridWidth > cellCount - 1) ) {
           addTetromino(tetrominoPosition)
           tetrominoPosition.forEach(cell => {
             cells[cell].classList.add('set')
           })
-          tetrominoPosition = [startingPosition,startingPosition + 1] 
+          tetrominoPosition = startingArray
           gravityCount = 0
-        } else if (tetrominoPosition.every(space => cells[space + gridWidth].classList.contains('set'))) {
-          console.log('Check 3')
+        } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
           addTetromino(tetrominoPosition)
           tetrominoPosition.forEach(cell => {
             cells[cell].classList.add('set')
           })
-          tetrominoPosition = [startingPosition,startingPosition + 1] 
+          tetrominoPosition = startingArray
           gravityCount = 0
           
         } else {
