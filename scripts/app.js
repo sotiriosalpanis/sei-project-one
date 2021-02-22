@@ -129,13 +129,20 @@ function init() {
     })
   }
 
+  const shapeToBeAdded = []
+  const nextShape = shapes[Math.floor(Math.random() * shapes.length)]
+  shapeToBeAdded.push(nextShape)
+  const activeShape = shapes[Math.floor(Math.random() * shapes.length)]
+  shapeToBeAdded.push(activeShape)
 
   let arrayStartingPosition
   let shape
 
   function dropTetromino() {
-    const shapeObject = bar
-    shape = shapeObject.name
+    const shapeObject = shapeToBeAdded[0]
+    shape = shapeToBeAdded[0].name
+    const shapeUpNext = shapeToBeAdded[1].name
+    next.innerText = shapeUpNext
     arrayStartingPosition = shapeObject.createShapeArray()
     tetrominoPosition = arrayStartingPosition
     const dropTimerId = setInterval(() => {
@@ -149,14 +156,24 @@ function init() {
         tetrominoPosition.forEach(cell => {
           cells[cell].classList.add('set')
         })
-        tetrominoPosition = arrayStartingPosition
-        console.log('Hit the bottom- ',tetrominoPosition)
+        
+        const nextShape = shapes[Math.floor(Math.random() * shapes.length)]
+        shapeToBeAdded.push(nextShape)
+        shapeToBeAdded.shift()
+        tetrominoPosition = shapeToBeAdded[0].createShapeArray()
+        shape = shapeToBeAdded[0].name
+        next.innerText = shapeToBeAdded[1].name
       } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
         addTetromino(tetrominoPosition,shape)
         tetrominoPosition.forEach(cell => {
           cells[cell].classList.add('set')
         })
-        tetrominoPosition = arrayStartingPosition
+        const nextShape = shapes[Math.floor(Math.random() * shapes.length)]
+        shapeToBeAdded.push(nextShape)
+        shapeToBeAdded.shift()
+        tetrominoPosition = shapeToBeAdded[0].createShapeArray()
+        shape = shapeToBeAdded[0].name
+        next.innerText = shapeToBeAdded[1].name
       } else {
         removeTetromino(tetrominoPosition,shape)
         const nextSpace = tetrominoPosition.map(cell => {
