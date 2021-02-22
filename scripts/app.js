@@ -114,7 +114,6 @@ function init() {
 
 
   function addTetromino(array,shape,orientation) {
-    console.log('Up button new tet: ',array,shape,orientation)
     array.forEach(cell => {
       cells[cell].classList.add(tetrominoClass)
       cells[cell].classList.add(shape)
@@ -210,9 +209,11 @@ function init() {
       })
     } else if (key === 38) {
       removeTetromino(tetrominoPosition,shape,orientation)
-      orientation = orientation + 1
-      // const newOrientation = orientation + 1
-      // addTetromino(tetrominoPosition,shape,orientation)
+      if (orientation < 3){
+        orientation = orientation + 1
+      } else {
+        orientation = 0
+      }
 
     } else {
       console.log('Invalid key')
