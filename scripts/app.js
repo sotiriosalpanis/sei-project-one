@@ -70,7 +70,6 @@ function init() {
         shapeGrid.appendChild(shapeCell)
       }
       next.appendChild(shapeGrid)
-      // console.log(shapeGrid)
       return shapeGrid
     }
   }
@@ -91,18 +90,43 @@ function init() {
   shapes.push(ell)
   shapes.push(revEll)
 
+
+  function createShapeArray(shape) {
+    const shapeArray = []
+    for (let h = 0; h < shape.height; h++) {
+      if (h === 0) {
+        for (let w = 0;w < shape.width; w++) {
+          // console.log(startingPosition)
+          shapeArray.push(startingPosition + w)
+        }
+      } else {
+        for (let w = 0;w < shape.width; w++) {
+          // console.log(startingPosition)
+          shapeArray.push(startingPosition + gridWidth + w)
+        }
+      }
+    }
+    const removeArray = shape.blankTiles.reverse()
+    for (let r = 0; r < removeArray.length; r++) {
+      console.log('Remove: ',removeArray[r])
+      shapeArray.splice(removeArray[r],1)
+    }
+
+    return shapeArray
+  }
+
+  console.log('ShapeArray',createShapeArray(tee))
+
   const nextShape = shapes[Math.floor(Math.random() * shapes.length)].createShape()
   console.log(nextShape)
 
   function addTetromino(array) {
-    // console.log('Add: ',array)
     array.forEach(cell => {
       cells[cell].classList.add(tetrominoClass)
     })
   }
 
   function removeTetromino(array) {
-    // console.log('Remove: ',array)
     array.forEach(cell => {
       cells[cell].classList.remove(tetrominoClass)
     })
@@ -111,8 +135,8 @@ function init() {
 
   let gravityCount
 
-  const startingArray = [startingPosition + gridWidth,startingPosition + gridWidth + 1,startingPosition + gridWidth + 2, startingPosition]
-
+  const startingArray = createShapeArray(tee)
+  
   function dropTetromino() {
     tetrominoPosition = startingArray
     gravityCount = 0
