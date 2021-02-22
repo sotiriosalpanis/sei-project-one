@@ -10,7 +10,7 @@ body {
 .grid {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
+  margin: 0 30px;
 
   /* height: 500px;
   width: 250px */
@@ -26,6 +26,11 @@ body {
   background-color: red;
   border: 1px dashed darkgreen;
 } */
+
+.game {
+  display: flex;
+  justify-content: flex-start;
+}
 
 .next {
   display: flex;

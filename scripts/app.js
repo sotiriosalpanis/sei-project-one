@@ -61,15 +61,17 @@ function init() {
         shapeCell.textContent = i
         shapeCell.style.width = `${cellSize - 2}px`
         shapeCell.style.height = `${cellSize - 2}px`
-        shapeCell.classList.add(this.name)
+        shapeCell.classList.add(tetrominoClass)
         if (!this.blankTiles.includes(i)) {
-          shapeCell.classList.add(tetrominoClass)
+          shapeCell.classList.add(this.name)
           shapeCell.style.backgroundColor = `${this.colour}`
         }
       
         shapeGrid.appendChild(shapeCell)
       }
+      next.innerHTML += this.name
       next.appendChild(shapeGrid)
+      
       return shapeGrid
     }
     createShapeArray() {
@@ -85,9 +87,10 @@ function init() {
           }
         }
       }
-      const removeArray = this.blankTiles.reverse()
+      const removeArray = this.blankTiles
       for (let r = 0; r < removeArray.length; r++) {
         shapeArray.splice(removeArray[r],1)
+        console.log(removeArray[r])
       }
       return shapeArray
     }
@@ -95,11 +98,11 @@ function init() {
 
   const square = new TetrominoShape('square',2,2,'yellow',[])
   const bar = new TetrominoShape('bar',4,1,'aqua',[])
-  const cross = new TetrominoShape('cross',3,2,'purple',[0,2])
-  const zed = new TetrominoShape('zed',3,2,'chartreuse',[0,5])
-  const revZed = new TetrominoShape('revZed',3,2,'red',[2,3])
-  const ell = new TetrominoShape('ell',3,2,'orange',[0,1])
-  const revEll = new TetrominoShape('revEll',3,2,'blue',[3,4])
+  const cross = new TetrominoShape('cross',3,2,'purple',[2,0])
+  const zed = new TetrominoShape('zed',3,2,'chartreuse',[5,0])
+  const revZed = new TetrominoShape('revZed',3,2,'red',[3,2])
+  const ell = new TetrominoShape('ell',3,2,'orange',[1,0])
+  const revEll = new TetrominoShape('revEll',3,2,'blue',[4,3])
   
   shapes.push(square)
   shapes.push(bar)
@@ -109,11 +112,6 @@ function init() {
   shapes.push(ell)
   shapes.push(revEll)
 
-  // console.log(zed.createShapeArray())
-
-
-  // const nextShape = shapes[Math.floor(Math.random() * shapes.length)].createShape()
-  // console.log(nextShape)
 
   function addTetromino(array,shape) {
     array.forEach(cell => {
@@ -142,7 +140,6 @@ function init() {
     const shapeObject = shapeToBeAdded[0]
     shape = shapeToBeAdded[0].name
     const shapeUpNext = shapeToBeAdded[1]
-    // next.innerText = shapeUpNext
     shapeUpNext.createShape()
     arrayStartingPosition = shapeObject.createShapeArray()
     tetrominoPosition = arrayStartingPosition
@@ -157,13 +154,11 @@ function init() {
         tetrominoPosition.forEach(cell => {
           cells[cell].classList.add('set')
         })
-        
         const nextShape = shapes[Math.floor(Math.random() * shapes.length)]
         shapeToBeAdded.push(nextShape)
         shapeToBeAdded.shift()
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
-        // next.innerText = shapeToBeAdded[1].name
         shapeToBeAdded[1].createShape()
       } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
         addTetromino(tetrominoPosition,shape)
@@ -175,7 +170,6 @@ function init() {
         shapeToBeAdded.shift()
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
-        // next.innerText = shapeToBeAdded[1].name
         shapeToBeAdded[1].createShape()
       } else {
         removeTetromino(tetrominoPosition,shape)
