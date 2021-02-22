@@ -2,7 +2,7 @@ function init() {
   
   const grid = document.querySelector('.grid')
   
-  const gameSpeed = 300
+  const gameSpeed = 800
   
   const gridWidth = 10
   const gridHeight = 20
