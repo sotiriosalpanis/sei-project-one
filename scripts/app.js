@@ -97,10 +97,10 @@ function init() {
   }
 
   const square = new TetrominoShape('square',2,2,'yellow',[[],[]])
-  const bar = new TetrominoShape('bar',4,1,'aqua',[[],[]])
+  const bar = new TetrominoShape('bar',4,1,'aqua',[[],[],[],[]])
   const cross = new TetrominoShape('cross',3,2,'purple',[[2,0],[4,0],[5,3],[5,1]])
-  const zed = new TetrominoShape('zed',3,2,'chartreuse',[[5,0],[4,1]])
-  const revZed = new TetrominoShape('revZed',3,2,'red',[[3,2],[5,0]])
+  const zed = new TetrominoShape('zed',3,2,'chartreuse',[[5,0],[4,1],[5,0],[4,1]])
+  const revZed = new TetrominoShape('revZed',3,2,'red',[[3,2],[5,0],[3,2],[5,0]])
   const ell = new TetrominoShape('ell',3,2,'orange',[[1,0],[4,2],[5,4],[3,1]])
   const revEll = new TetrominoShape('revEll',3,2,'blue',[[4,3],[5,3],[2,1],[3,1]])
   
@@ -209,7 +209,7 @@ function init() {
       })
     } else if (key === 38) {
       removeTetromino(tetrominoPosition,shape,orientation)
-      rotateTetronimo(shape,orientation)
+      rotateTetronimo(shape,orientation,tetrominoPosition)
       if (orientation < 3){
         orientation = orientation + 1
       } else {
@@ -222,21 +222,59 @@ function init() {
     addTetromino(tetrominoPosition,shape,orientation)
   }
 
-  function rotateTetronimo(shape,orientation) {
-    console.log('Shape',shape)
+  function rotateTetronimo(shape,orientation,tetrominoPosition) {
     const shapeObject = shapes.find(object => {
       return object.name === shape
     })
-    console.log(shapeObject)
     if (shape === 'square') {
       console.log('No action required')
-    } else if (shapeObject.blankTiles.length === 2){
-      console.log('2 blank tile entries',shapeObject.blankTiles,orientation)
+    } else if (shapeObject.blankTiles.length === 2) {
+      if (orientation > 1) {
+        orientation = orientation - 2
+      }
+      createRotationArray(shapeObject,orientation,tetrominoPosition)
     } else {
-      console.log('4 blank tile entries',shapeObject.blankTiles,orientation)
+      createRotationArray(shapeObject,orientation,tetrominoPosition)
     }
   }
 
+  let height
+  let width
+  function createRotationArray(shapeObject,orientation,tetrominoPosition) {
+    const rotationPosition = tetrominoPosition[0]
+    if (orientation === 0 || orientation === 2) {
+      height = shapeObject.height
+      width = shapeObject.width
+    } else {
+      height = shapeObject.width
+      width = shapeObject.height
+    }
+    console.log('height',height,'Width',width)
+    const shapeArray = []
+    for (let h = 0; h < height; h++) {
+      if (h === 0) {
+        for (let w = 0;w < width; w++) {
+          console.log('h === 0', rotationPosition + w)
+          shapeArray.push(rotationPosition + w)
+        }
+      } else {
+        for (let w = 0;w < width; w++) {
+          console.log('H more than 1: ',rotationPosition + (gridWidth * h),'H:',h)
+          shapeArray.push(rotationPosition + (gridWidth * h))
+        }
+      }
+    }
+    const removeArray = shapeObject.blankTiles[orientation]
+    for (let r = 0; r < removeArray.length; r++) {
+      shapeArray.splice(removeArray[r],1)
+      console.log(removeArray[r])
+    }
+    console.log(shapeObject.name,shapeArray)
+    return shapeArray
+  }
+
+  // const testRotation = createRotationArray(ell,0,[53,54,55,45])
+  // addTetromino(testRotation,ell.name,0)
 
   // Buttons!
   const startButton = document.querySelector('#play')
