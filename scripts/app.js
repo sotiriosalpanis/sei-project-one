@@ -72,11 +72,29 @@ function init() {
       next.appendChild(shapeGrid)
       return shapeGrid
     }
+    createShapeArray() {
+      const shapeArray = []
+      for (let h = 0; h < this.height; h++) {
+        if (h === 0) {
+          for (let w = 0;w < this.width; w++) {
+            shapeArray.push(startingPosition + w)
+          }
+        } else {
+          for (let w = 0;w < this.width; w++) {
+            shapeArray.push(startingPosition + gridWidth + w)
+          }
+        }
+      }
+      const removeArray = this.blankTiles.reverse()
+      for (let r = 0; r < removeArray.length; r++) {
+        shapeArray.splice(removeArray[r],1)
+      }
+      return shapeArray
+    }
   }
 
   const square = new TetrominoShape('square',2,2,'yellow',[])
   const bar = new TetrominoShape('bar',4,1,'aqua',[])
-  // const tee = new TetrominoShape('tee',3,2,'purple',[0,2])
   const cross = new TetrominoShape('tee',3,2,'purple',[0,2])
   const zed = new TetrominoShape('zed',3,2,'chartreuse',[0,5])
   const revZed = new TetrominoShape('revZed',3,2,'red',[2,3])
@@ -91,33 +109,8 @@ function init() {
   shapes.push(ell)
   shapes.push(revEll)
 
+  // console.log(zed.createShapeArray())
 
-  function createShapeArray(shape) {
-    const shapeArray = []
-    for (let h = 0; h < shape.height; h++) {
-      if (h === 0) {
-        for (let w = 0;w < shape.width; w++) {
-          // console.log(startingPosition)
-          shapeArray.push(startingPosition + w)
-        }
-      } else {
-        for (let w = 0;w < shape.width; w++) {
-          // console.log(startingPosition)
-          shapeArray.push(startingPosition + gridWidth + w)
-        }
-      }
-    }
-    console.log(shapeArray)
-    const removeArray = shape.blankTiles.reverse()
-    for (let r = 0; r < removeArray.length; r++) {
-      console.log('Remove: ',removeArray[r])
-      shapeArray.splice(removeArray[r],1)
-    }
-
-    return shapeArray
-  }
-
-  console.log('ShapeArray',createShapeArray(cross))
 
   // const nextShape = shapes[Math.floor(Math.random() * shapes.length)].createShape()
   // console.log(nextShape)
@@ -139,9 +132,8 @@ function init() {
 
   function dropTetromino() {
     const testShape = cross
-    arrayStartingPosition = createShapeArray(testShape)
+    arrayStartingPosition = testShape.createShapeArray()
     tetrominoPosition = arrayStartingPosition
-    console.log('Check 1: ',arrayStartingPosition,tetrominoPosition)
     const dropTimerId = setInterval(() => {
       if (cells[startingPosition].classList.contains('set') || grid.classList.contains('stop-game')) {
         console.log('Game stopped')
@@ -162,7 +154,6 @@ function init() {
         })
         tetrominoPosition = arrayStartingPosition
       } else {
-        console.log('Check 2: add tetromino',tetrominoPosition)
         removeTetromino(tetrominoPosition)
         const nextSpace = tetrominoPosition.map(cell => {
           cell += gridWidth
@@ -170,7 +161,6 @@ function init() {
         })
         addTetromino(nextSpace)
         tetrominoPosition = nextSpace
-        console.log('Shape Array check 5',tetrominoPosition)
       } 
     },gameSpeed)
   }
