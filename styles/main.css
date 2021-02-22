@@ -22,10 +22,10 @@ body {
   width: 23px;
 } */
 
-.tetromino {
+/* .tetromino {
   background-color: red;
   border: 1px dashed darkgreen;
-}
+} */
 
 .next {
   display: flex;
@@ -36,5 +36,33 @@ body {
 .shape {
   display: flex;
   flex-wrap: wrap;
+}
+
+.square {
+  background-color: yellow;
+}
+
+.bar {
+  background-color: aqua;
+}
+
+.cross {
+  background-color: purple;
+}
+
+.zed {
+  background-color: chartreuse;
+}
+
+.revZed {
+  background-color: red;
+}
+
+.ell {
+  background-color: orange;
+}
+
+.revEll {
+  background-color: blue;
 }
 

@@ -95,11 +95,11 @@ function init() {
 
   const square = new TetrominoShape('square',2,2,'yellow',[])
   const bar = new TetrominoShape('bar',4,1,'aqua',[])
-  const cross = new TetrominoShape('tee',3,2,'purple',[0,2])
+  const cross = new TetrominoShape('cross',3,2,'purple',[0,2])
   const zed = new TetrominoShape('zed',3,2,'chartreuse',[0,5])
   const revZed = new TetrominoShape('revZed',3,2,'red',[2,3])
   const ell = new TetrominoShape('ell',3,2,'orange',[0,1])
-  const  revEll = new TetrominoShape('revEll',3,2,'blue',[3,4])
+  const revEll = new TetrominoShape('revEll',3,2,'blue',[3,4])
   
   shapes.push(square)
   shapes.push(bar)
@@ -115,51 +115,55 @@ function init() {
   // const nextShape = shapes[Math.floor(Math.random() * shapes.length)].createShape()
   // console.log(nextShape)
 
-  function addTetromino(array) {
+  function addTetromino(array,shape) {
     array.forEach(cell => {
       cells[cell].classList.add(tetrominoClass)
+      cells[cell].classList.add(shape)
     })
   }
 
-  function removeTetromino(array) {
+  function removeTetromino(array,shape) {
     array.forEach(cell => {
       cells[cell].classList.remove(tetrominoClass)
+      cells[cell].classList.remove(shape)
     })
   }
 
 
   let arrayStartingPosition
+  let shape
 
   function dropTetromino() {
-    const testShape = cross
-    arrayStartingPosition = testShape.createShapeArray()
+    const shapeObject = bar
+    shape = shapeObject.name
+    arrayStartingPosition = shapeObject.createShapeArray()
     tetrominoPosition = arrayStartingPosition
     const dropTimerId = setInterval(() => {
       if (cells[startingPosition].classList.contains('set') || grid.classList.contains('stop-game')) {
         console.log('Game stopped')
         clearInterval(dropTimerId)
         grid.classList.remove('stop-game')
-        cells.forEach(cell => cell.classList.remove(tetrominoClass))
+        cells.forEach(cell => cell.classList.remove(shape))
       } else if (tetrominoPosition.some(space => space + gridWidth > cellCount - 1) ) {
-        addTetromino(tetrominoPosition)
+        addTetromino(tetrominoPosition,shape)
         tetrominoPosition.forEach(cell => {
           cells[cell].classList.add('set')
         })
         tetrominoPosition = arrayStartingPosition
         console.log('Hit the bottom- ',tetrominoPosition)
       } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
-        addTetromino(tetrominoPosition)
+        addTetromino(tetrominoPosition,shape)
         tetrominoPosition.forEach(cell => {
           cells[cell].classList.add('set')
         })
         tetrominoPosition = arrayStartingPosition
       } else {
-        removeTetromino(tetrominoPosition)
+        removeTetromino(tetrominoPosition,shape)
         const nextSpace = tetrominoPosition.map(cell => {
           cell += gridWidth
           return cell
         })
-        addTetromino(nextSpace)
+        addTetromino(nextSpace,shape)
         tetrominoPosition = nextSpace
       } 
     },gameSpeed)
@@ -173,19 +177,19 @@ function init() {
     const key = event.keyCode
     // * 39 is right. 37 is left
     if (key === 39 && tetrominoPosition.every(cell => cell % gridWidth !== gridWidth - 1) && tetrominoPosition.every(cell => !cells[cell + 1].classList.contains('set')) && tetrominoPosition.every(cell => cell + gridWidth <= cellCount - 1)) {
-      removeTetromino(tetrominoPosition)
+      removeTetromino(tetrominoPosition,shape)
       tetrominoPosition = tetrominoPosition.map(cell => {
         return cell += 1
       })
     } else if (key === 37 && tetrominoPosition.every(cell => cell % gridWidth !== 0) && tetrominoPosition.every(cell => !cells[cell - 1].classList.contains('set')) && tetrominoPosition.every(cell => cell + gridWidth <= cellCount - 1)) {
-      removeTetromino(tetrominoPosition)
+      removeTetromino(tetrominoPosition,shape)
       tetrominoPosition = tetrominoPosition.map(cell => {
         return cell -= 1
       })
     } else {
       console.log('Invalid key')
     }
-    addTetromino(tetrominoPosition)
+    addTetromino(tetrominoPosition,shape)
   }
 
   // Buttons!
@@ -197,7 +201,6 @@ function init() {
   function stopGrid(){
     if (window.confirm('Are you sure you want to stop the game? All progress will be lost')) {
       grid.classList.add('stop-game')
-      console.log('Stop button',grid.classList)
     }
   }
 
