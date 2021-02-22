@@ -7,30 +7,20 @@ body {
   margin: 0 auto;
 }
 
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 30px;
-
-  /* height: 500px;
-  width: 250px */
-}
-
-/* .cell {
-  height: 23px;
-  width: calc(10% - 2px);
-  width: 23px;
-} */
-
-/* .tetromino {
-  background-color: red;
-  border: 1px dashed darkgreen;
-} */
-
 .game {
   display: flex;
   justify-content: flex-start;
+
+  align-content: center;
+  margin: 0 auto;
 }
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
 
 .next {
   display: flex;
