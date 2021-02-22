@@ -209,6 +209,7 @@ function init() {
       })
     } else if (key === 38) {
       removeTetromino(tetrominoPosition,shape,orientation)
+      rotateTetronimo(shape,orientation)
       if (orientation < 3){
         orientation = orientation + 1
       } else {
@@ -220,6 +221,22 @@ function init() {
     }
     addTetromino(tetrominoPosition,shape,orientation)
   }
+
+  function rotateTetronimo(shape,orientation) {
+    console.log('Shape',shape)
+    const shapeObject = shapes.find(object => {
+      return object.name === shape
+    })
+    console.log(shapeObject)
+    if (shape === 'square') {
+      console.log('No action required')
+    } else if (shapeObject.blankTiles.length === 2){
+      console.log('2 blank tile entries',shapeObject.blankTiles,orientation)
+    } else {
+      console.log('4 blank tile entries',shapeObject.blankTiles,orientation)
+    }
+  }
+
 
   // Buttons!
   const startButton = document.querySelector('#play')
