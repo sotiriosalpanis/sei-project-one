@@ -40,29 +40,39 @@ body {
 
 .square {
   background-color: yellow;
+  display: none;
 }
 
 .bar {
   background-color: aqua;
+  display: none;
 }
 
 .cross {
   background-color: purple;
+  display: none;
 }
 
 .zed {
   background-color: chartreuse;
+  display: none;
 }
 
 .revZed {
   background-color: red;
+  display: none;
 }
 
 .ell {
   background-color: orange;
+  display: none;
 }
 
 .revEll {
   background-color: blue;
+  display: none;
 }
 
+.tetromino {
+  display: block;
+}
