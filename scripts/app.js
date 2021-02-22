@@ -132,54 +132,58 @@ function init() {
     })
   }
 
-
+  // const testShape = bar
   let gravityCount
-
-  // const startingArray = createShapeArray(tee)
-  // console.log('Starting array', startingArray)
-
-  // let startingArray
+  let arrayStartingPosition
 
   function dropTetromino() {
-    // startingArray = createShapeArray(tee)
-    // console.log('Starting array', startingArray, createShapeArray(tee))
-    tetrominoPosition = createShapeArray(tee)
-    console.log(tetrominoPosition)
+    const testShape = bar
+    arrayStartingPosition = createShapeArray(testShape)
+    tetrominoPosition = arrayStartingPosition
     gravityCount = 0
     const dropTimerId = setInterval(() => {
+      // console.log('Shape Array check 1',tetrominoPosition)
+      console.log('Check 2 - gravity height',gravityCount < gridHeight)
+      console.log('check 3 - hit the bottom?',tetrominoPosition.some(space => space + gridWidth > cellCount - 1))
+      // console.log('Check 4 - set tetronimos',tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set')))
       if (cells[startingPosition].classList.contains('set') || grid.classList.contains('stop-game')) {
         console.log('Game stopped')
         clearInterval(dropTimerId)
         grid.classList.remove('stop-game')
         cells.forEach(cell => cell.classList.remove(tetrominoClass))
-      } else if (gravityCount < gridHeight) {
+      // } else if (gravityCount < gridHeight) {
+        // addTetromino(tetrominoPosition)
+        // removeTetromino(tetrominoPosition)
+        // const nextSpace = tetrominoPosition.map(cell => {
+        //   cell += gridWidth
+        //   return cell
+        // })
+      } else if (tetrominoPosition.some(space => space + gridWidth > cellCount - 1) ) {
         addTetromino(tetrominoPosition)
+        tetrominoPosition.forEach(cell => {
+          cells[cell].classList.add('set')
+        })
+        tetrominoPosition = arrayStartingPosition
+        console.log('Hit the bottom- ',tetrominoPosition)
+        gravityCount = 0
+      } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
+        addTetromino(tetrominoPosition)
+        tetrominoPosition.forEach(cell => {
+          cells[cell].classList.add('set')
+        })
+        tetrominoPosition = arrayStartingPosition
+        gravityCount = 0
+      } else {
         removeTetromino(tetrominoPosition)
         const nextSpace = tetrominoPosition.map(cell => {
           cell += gridWidth
           return cell
         })
-        if (tetrominoPosition.some(space => space + gridWidth > cellCount - 1) ) {
-          addTetromino(tetrominoPosition)
-          tetrominoPosition.forEach(cell => {
-            cells[cell].classList.add('set')
-          })
-          tetrominoPosition = createShapeArray(tee)
-          gravityCount = 0
-        } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
-          addTetromino(tetrominoPosition)
-          tetrominoPosition.forEach(cell => {
-            cells[cell].classList.add('set')
-          })
-          tetrominoPosition = createShapeArray(tee)
-          gravityCount = 0
-          
-        } else {
-          addTetromino(nextSpace)
-          tetrominoPosition = nextSpace
-        } 
-        gravityCount++
-      }
+        addTetromino(nextSpace)
+        tetrominoPosition = nextSpace
+        console.log('Shape Array check 5',tetrominoPosition)
+      } 
+      gravityCount++
     },gameSpeed)
   }
 
