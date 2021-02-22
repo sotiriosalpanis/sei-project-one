@@ -117,8 +117,8 @@ function init() {
 
   console.log('ShapeArray',createShapeArray(tee))
 
-  const nextShape = shapes[Math.floor(Math.random() * shapes.length)].createShape()
-  console.log(nextShape)
+  // const nextShape = shapes[Math.floor(Math.random() * shapes.length)].createShape()
+  // console.log(nextShape)
 
   function addTetromino(array) {
     array.forEach(cell => {
@@ -135,10 +135,16 @@ function init() {
 
   let gravityCount
 
-  const startingArray = createShapeArray(tee)
-  
+  // const startingArray = createShapeArray(tee)
+  // console.log('Starting array', startingArray)
+
+  // let startingArray
+
   function dropTetromino() {
-    tetrominoPosition = startingArray
+    // startingArray = createShapeArray(tee)
+    // console.log('Starting array', startingArray, createShapeArray(tee))
+    tetrominoPosition = createShapeArray(tee)
+    console.log(tetrominoPosition)
     gravityCount = 0
     const dropTimerId = setInterval(() => {
       if (cells[startingPosition].classList.contains('set') || grid.classList.contains('stop-game')) {
@@ -158,14 +164,14 @@ function init() {
           tetrominoPosition.forEach(cell => {
             cells[cell].classList.add('set')
           })
-          tetrominoPosition = startingArray
+          tetrominoPosition = createShapeArray(tee)
           gravityCount = 0
         } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
           addTetromino(tetrominoPosition)
           tetrominoPosition.forEach(cell => {
             cells[cell].classList.add('set')
           })
-          tetrominoPosition = startingArray
+          tetrominoPosition = createShapeArray(tee)
           gravityCount = 0
           
         } else {
@@ -173,7 +179,6 @@ function init() {
           tetrominoPosition = nextSpace
         } 
         gravityCount++
-        console.log(gravityCount)
       }
     },gameSpeed)
   }
