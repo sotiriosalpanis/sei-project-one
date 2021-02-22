@@ -2,7 +2,7 @@ function init() {
   
   const grid = document.querySelector('.grid')
   
-  const gameSpeed = 100
+  const gameSpeed = 700
   
   const gridWidth = 10
   const gridHeight = 20
@@ -161,12 +161,16 @@ function init() {
   function handleKeyUp(event) {
     const key = event.keyCode
     // * 39 is right. 37 is left
-    if (key === 39 && tetrominoPosition % gridWidth !== gridWidth - 1 && !cells[tetrominoPosition + 1].classList.contains(tetrominoClass) && tetrominoPosition + gridWidth <= cellCount - 1) {
+    if (key === 39 && tetrominoPosition.every(cell => cell % gridWidth !== gridWidth - 1) && tetrominoPosition.every(cell => !cells[cell + 1].classList.contains('set')) && tetrominoPosition.every(cell => cell + gridWidth <= cellCount - 1)) {
       removeTetromino(tetrominoPosition)
-      tetrominoPosition++
-    } else if (key === 37 && tetrominoPosition % gridWidth !== 0 && !cells[tetrominoPosition - 1].classList.contains(tetrominoClass) && tetrominoPosition + gridWidth <= cellCount - 1) {
+      tetrominoPosition = tetrominoPosition.map(cell => {
+        return cell += 1
+      })
+    } else if (key === 37 && tetrominoPosition.every(cell => cell % gridWidth !== 0) && tetrominoPosition.every(cell => !cells[cell - 1].classList.contains('set')) && tetrominoPosition.every(cell => cell + gridWidth <= cellCount - 1)) {
       removeTetromino(tetrominoPosition)
-      tetrominoPosition --
+      tetrominoPosition = tetrominoPosition.map(cell => {
+        return cell -= 1
+      })
     } else {
       console.log('Invalid key')
     }
