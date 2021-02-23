@@ -43,10 +43,11 @@ function init() {
   const next = document.querySelector('.next')
 
   class TetrominoShape {
-    constructor(name,size,tiles) {
+    constructor(name,size,tiles,orientationAxis) {
       this.name = name
       this.size = size
       this.tiles = tiles
+      this.orientationAxis = orientationAxis
     }
     createShape() {
       const shapeGrid = document.createElement('div')
@@ -93,13 +94,13 @@ function init() {
       return tilesArray
     }
   }
-  const square = new TetrominoShape('square',4,[[0,1,4,5],[0,1,4,5],[0,1,4,5],[0,1,4,5]])
-  const bar = new TetrominoShape('bar',4,[[4,5,6,7],[2,6,10,14],[8,9,10,11],[1,5,6,7]])
-  const cross = new TetrominoShape('cross',3,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]])
-  const zed = new TetrominoShape('zed',3,[[1,2,3,4],[1,4,5,8],[4,5,6,7],[0,3,4,7]])
-  const revZed = new TetrominoShape('revZed',3,[[0,1,4,5],[2,5,4,7],[3,4,7,8],[1,3,4,7]])
-  const ell = new TetrominoShape('ell',3,[[3,4,5,2],[1,4,7,8],[3,4,5,6],[0,1,4,7]])
-  const revEll = new TetrominoShape('revEll',3,[[0,3,4,5],[1,2,4,7],[3,4,5,8],[1,4,7,6]])
+  const square = new TetrominoShape('square',4,[[0,1,4,5],[0,1,4,5],[0,1,4,5],[0,1,4,5]],[0,0,0,0])
+  const bar = new TetrominoShape('bar',4,[[4,5,6,7],[2,6,10,14],[8,9,10,11],[1,5,9,13]],[1,1,1,1])
+  const cross = new TetrominoShape('cross',3,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]],[0,3,2,1])
+  const zed = new TetrominoShape('zed',3,[[1,2,3,4],[1,4,5,8],[4,5,6,7],[0,3,4,7]],[1,2,1,2])
+  const revZed = new TetrominoShape('revZed',3,[[0,1,4,5],[2,5,4,7],[3,4,7,8],[1,3,4,6]],[1,0,1,0])
+  const ell = new TetrominoShape('ell',3,[[3,4,5,2],[1,4,7,8],[3,4,5,6],[0,1,4,7]],[1,0,1,0])
+  const revEll = new TetrominoShape('revEll',3,[[0,3,4,5],[1,2,4,7],[3,4,5,8],[1,4,7,6]],[1,1,0,0])
   
   shapes.push(square)
   shapes.push(bar)
@@ -147,12 +148,13 @@ function init() {
     arrayStartingPosition = shapeObject.createShapeArray()
     tetrominoPosition = arrayStartingPosition
     const dropTimerId = setInterval(() => {
+      console.log('Tetronimo added: ',shape)
       if (cells[startingPosition].classList.contains('set') || grid.classList.contains('stop-game')) {
         console.log('Game stopped')
         clearInterval(dropTimerId)
         grid.classList.remove('stop-game')
         cells.forEach(cell => cell.classList.remove('square','bar','ell','revEll','cross','zed','revZed','set'))
-        console.log('Some check 1: ',tetrominoPosition.some(space => space + gridWidth > cellCount - 1))
+        // console.log('Some check 1: ',tetrominoPosition.some(space => space + gridWidth > cellCount - 1))
       } else if (tetrominoPosition.some(space => space + gridWidth > cellCount - 1) ) {
         addTetromino(tetrominoPosition,shape,orientation)
         tetrominoPosition.forEach(cell => {
@@ -165,7 +167,7 @@ function init() {
         shape = shapeToBeAdded[0].name
         shapeToBeAdded[1].createShape()
         orientation = 0
-        console.log('Some check 2: ',tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set')))
+        // console.log('Some check 2: ',tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set')))
       } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
         addTetromino(tetrominoPosition,shape,orientation)
         tetrominoPosition.forEach(cell => {
@@ -223,10 +225,11 @@ function init() {
 
   function createRotationArray(shape,orientation,tetrominoPosition) {
     const shapeArray = []
-    const rotationPosition = tetrominoPosition[0]
     const shapeObject = shapes.find(object => {
       return object.name === shape
     })
+    const orientationIndex = shapeObject.orientationAxis[orientation]
+    const rotationPosition = tetrominoPosition[orientationIndex]
     for (let h = 0; h < shapeObject.size; h++) {
       if (h === 0) {
         for (let w = 0;w < shapeObject.size; w++) {
@@ -247,28 +250,23 @@ function init() {
     console.log('Rotation array 0: ',tilesArray)
 
     if (tilesArray.some(tile => tile % gridWidth === 0) && tilesArray.some(tile => tile % gridWidth === gridWidth - 1)) {
-      if (tetrominoPosition.some(tile => tile % gridWidth > 8)) {
-        console.log('Check for problem')
-        while (tilesArray.some(tile => tile % gridWidth === 0)) {
-          console.log(tilesArray.some(tile => tile % gridWidth === 0))
-          tilesArray = tilesArray.map(tile => {
-            return tile -= 1
-          })
-        }
-
+      console.log('Filter',tilesArray.filter(tile => tile % gridWidth === 0))
+      const overFitZero = tilesArray.filter(tile => tile % gridWidth === 0).length
+      let overFit = tilesArray.filter(tile => tile % gridWidth < 5).length
+      if (overFit === overFitZero) {
+        overFit = 1
       }
+      tilesArray = tilesArray.map(tile => {
+        return tile -= overFit
+      })
+
     }
+    
 
     console.log('OG array: ',tetrominoPosition)
     console.log('Rotation array 1: ',tilesArray)
     return tilesArray
   }
-
-  // if (key === 39 && tetrominoPosition.every(cell => cell % gridWidth !== gridWidth - 1) && tetrominoPosition.every(cell => !cells[cell + 1].classList.contains('set')) && tetrominoPosition.every(cell => cell + gridWidth <= cellCount - 1)) {
-  //   removeTetromino(tetrominoPosition,shape,orientation)
-  //   tetrominoPosition = tetrominoPosition.map(cell => {
-  //     return cell += 1
-  //   })
 
   // Buttons!
   const startButton = document.querySelector('#play')
