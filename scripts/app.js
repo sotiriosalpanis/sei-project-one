@@ -1,13 +1,16 @@
 function init() {
   
   const grid = document.querySelector('.grid')
-  const gameSpeed = 500
-  const gridWidth = 10
-  const gridHeight = 20
+  const gameSpeed = 1000
+  const gridWidth = 12
+  const gridHeight = 21
   const cellCount = gridWidth * gridHeight
   const cells = []
   const cellSize = 25
   const score = 0
+
+  const header = document.querySelector('header')
+  // console.log(header)
 
 
 
@@ -61,7 +64,6 @@ function init() {
         shapeCell.classList.add(tetrominoClass)
         if (this.tiles[0].includes(i)) {
           shapeCell.classList.add(this.name)
-          // shapeCell.style.backgroundColor = `${this.colour}`
         }
       
         shapeGrid.appendChild(shapeCell)
@@ -94,9 +96,9 @@ function init() {
   }
   const square = new TetrominoShape('square',4,[[0,1,4,5],[0,1,4,5],[0,1,4,5],[0,1,4,5]],[0,0,0,0])
   const bar = new TetrominoShape('bar',4,[[4,5,6,7],[2,6,10,14],[8,9,10,11],[1,5,9,13]],[1,1,1,1])
-  const cross = new TetrominoShape('cross',3,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]],[0,3,2,1])
+  const cross = new TetrominoShape('cross',3,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]],[0,0,0,0])
   const zed = new TetrominoShape('zed',3,[[1,2,3,4],[1,4,5,8],[4,5,6,7],[0,3,4,7]],[1,2,1,2])
-  const revZed = new TetrominoShape('revZed',3,[[0,1,4,5],[2,5,4,7],[3,4,7,8],[1,3,4,6]],[1,0,1,0])
+  const revZed = new TetrominoShape('revZed',3,[[0,1,4,5],[2,5,4,7],[3,4,7,8],[1,3,4,6]],[0,0,0,0])
   const ell = new TetrominoShape('ell',3,[[3,4,5,2],[1,4,7,8],[3,4,5,6],[0,1,4,7]],[1,0,1,0])
   const revEll = new TetrominoShape('revEll',3,[[0,3,4,5],[1,2,4,7],[3,4,5,8],[1,4,7,6]],[1,1,0,0])
   
@@ -110,7 +112,6 @@ function init() {
 
 
   function addTetromino(array,shape,orientation) {
-    // console.log('Check 3',array)
     array.forEach(cell => {
       cells[cell].classList.add(tetrominoClass)
       cells[cell].classList.add(shape)
@@ -164,6 +165,7 @@ function init() {
         shapeToBeAdded.shift()
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
+        // header.classList.add(shapeToBeAdded[0].name)
         shapeToBeAdded[1].createShape()
         orientation = 0
         
@@ -292,7 +294,6 @@ function init() {
         const clearLine = row.every(cell => cell.classList.contains('set'))
         if (clearLine) {
           for (let i = 0; i < row.length; i++) {
-            console.log('Remove: ',row[i].classList)
             row[i].classList.remove(tetrominoClass,'set','square','bar','ell','revEll','cross','zed','revZed')
           }
           const rowsToClear = cells.slice(0,c).reverse()
@@ -302,12 +303,12 @@ function init() {
             const dropCell = Number(cell.innerText) + gridWidth
             cell.classList.remove(tetrominoClass,'set','square','bar','ell','revEll','cross','zed','revZed')
             for (let c = 0; c < cellClassList.length; c++){
-              console.log('Cell, dropcell, class',cell,dropCell,cellClassList[c])
               cells[dropCell].classList.add(cellClassList[c])
-
             }
           })
           scoreSpan.innerText = Number(scoreSpan.innerText) + 100
+
+          // if scoreSpan
         }
       }
     }
