@@ -2,7 +2,7 @@ function init() {
   
   const grid = document.querySelector('.grid')
   
-  const gameSpeed = 800
+  const gameSpeed = 500
   
   const gridWidth = 10
   const gridHeight = 20
@@ -42,29 +42,81 @@ function init() {
 
   const next = document.querySelector('.next')
 
+  // class TetrominoShape {
+  //   constructor(name,width,height,colour,blankTiles) {
+  //     this.name = name
+  //     this.width = width
+  //     this.height = height
+  //     this.colour = colour
+  //     this.blankTiles = blankTiles
+  //   }
+  //   createShape() {
+  //     const shapeGrid = document.createElement('div')
+  //     shapeGrid.classList.add('shape')
+  //     shapeGrid.style.width = `${this.width * cellSize}px`
+  //     shapeGrid.style.height = `${this.height * cellSize}px`
+  //     const shapeCellCount = this.width * this.height
+  //     for (let i = 0; i < shapeCellCount; i++) {
+  //       const shapeCell = document.createElement('div')
+  //       shapeCell.textContent = i
+  //       shapeCell.style.width = `${cellSize - 2}px`
+  //       shapeCell.style.height = `${cellSize - 2}px`
+  //       shapeCell.classList.add(tetrominoClass)
+  //       if (!this.blankTiles[0].includes(i)) {
+  //         shapeCell.classList.add(this.name)
+  //         shapeCell.style.backgroundColor = `${this.colour}`
+  //       }
+      
+  //       shapeGrid.appendChild(shapeCell)
+  //     }
+  //     next.innerHTML += this.name
+  //     next.appendChild(shapeGrid)
+      
+  //     return shapeGrid
+  //   }
+  //   createShapeArray() {
+  //     const shapeArray = []
+  //     for (let h = 0; h < this.height; h++) {
+  //       if (h === 0) {
+  //         for (let w = 0;w < this.width; w++) {
+  //           shapeArray.push(startingPosition + w)
+  //         }
+  //       } else {
+  //         for (let w = 0;w < this.width; w++) {
+  //           shapeArray.push(startingPosition + gridWidth + w)
+  //         }
+  //       }
+  //     }
+  //     const removeArray = this.blankTiles[0]
+  //     for (let r = 0; r < removeArray.length; r++) {
+  //       shapeArray.splice(removeArray[r],1)
+  //       console.log(removeArray[r])
+  //     }
+  //     return shapeArray
+  //   }
+  // }
+
   class TetrominoShape {
-    constructor(name,width,height,colour,blankTiles) {
+    constructor(name,size,tiles) {
       this.name = name
-      this.width = width
-      this.height = height
-      this.colour = colour
-      this.blankTiles = blankTiles
+      this.size = size
+      this.tiles = tiles
     }
     createShape() {
       const shapeGrid = document.createElement('div')
       shapeGrid.classList.add('shape')
-      shapeGrid.style.width = `${this.width * cellSize}px`
-      shapeGrid.style.height = `${this.height * cellSize}px`
-      const shapeCellCount = this.width * this.height
+      shapeGrid.style.width = `${this.size * cellSize}px`
+      shapeGrid.style.height = `${this.size * cellSize}px`
+      const shapeCellCount = this.size * this.size
       for (let i = 0; i < shapeCellCount; i++) {
         const shapeCell = document.createElement('div')
         shapeCell.textContent = i
         shapeCell.style.width = `${cellSize - 2}px`
         shapeCell.style.height = `${cellSize - 2}px`
         shapeCell.classList.add(tetrominoClass)
-        if (!this.blankTiles[0].includes(i)) {
+        if (this.tiles[0].includes(i)) {
           shapeCell.classList.add(this.name)
-          shapeCell.style.backgroundColor = `${this.colour}`
+          // shapeCell.style.backgroundColor = `${this.colour}`
         }
       
         shapeGrid.appendChild(shapeCell)
@@ -76,33 +128,32 @@ function init() {
     }
     createShapeArray() {
       const shapeArray = []
-      for (let h = 0; h < this.height; h++) {
+      for (let h = 0; h < this.size; h++) {
         if (h === 0) {
-          for (let w = 0;w < this.width; w++) {
+          for (let w = 0;w < this.size; w++) {
             shapeArray.push(startingPosition + w)
           }
         } else {
-          for (let w = 0;w < this.width; w++) {
-            shapeArray.push(startingPosition + gridWidth + w)
+          for (let w = 0;w < this.size; w++) {
+            shapeArray.push(startingPosition + (gridWidth * h) + w)
           }
         }
       }
-      const removeArray = this.blankTiles[0]
-      for (let r = 0; r < removeArray.length; r++) {
-        shapeArray.splice(removeArray[r],1)
-        console.log(removeArray[r])
+      const tilesArray = []
+      for (let r = 0; r < this.tiles[0].length; r++) {
+        tilesArray.push(shapeArray[this.tiles[0][r]])
       }
-      return shapeArray
+      console.log('tiles',tilesArray)
+      return tilesArray
     }
   }
-
-  const square = new TetrominoShape('square',2,2,'yellow',[[],[]])
-  const bar = new TetrominoShape('bar',4,1,'aqua',[[],[],[],[]])
-  const cross = new TetrominoShape('cross',3,2,'purple',[[2,0],[4,0],[5,3],[5,1]])
-  const zed = new TetrominoShape('zed',3,2,'chartreuse',[[5,0],[4,1],[5,0],[4,1]])
-  const revZed = new TetrominoShape('revZed',3,2,'red',[[3,2],[5,0],[3,2],[5,0]])
-  const ell = new TetrominoShape('ell',3,2,'orange',[[1,0],[4,2],[5,4],[3,1]])
-  const revEll = new TetrominoShape('revEll',3,2,'blue',[[4,3],[5,3],[2,1],[3,1]])
+  const square = new TetrominoShape('square',2,[[1,2,5,6],[1,2,5,6],[1,2,5,6],[1,2,5,6]])
+  const bar = new TetrominoShape('bar',4,[[4,5,6,7],[2,6,10,14],[8,9,10,11],[1,5,6,7]])
+  const cross = new TetrominoShape('cross',3,[[1,3,4,5]])
+  const zed = new TetrominoShape('zed',3,[[1,2,3,4]])
+  const revZed = new TetrominoShape('revZed',3,[[0,1,4,5]])
+  const ell = new TetrominoShape('ell',3,[[3,4,5,2]])
+  const revEll = new TetrominoShape('revEll',3,[[0,3,4,5]])
   
   shapes.push(square)
   shapes.push(bar)
@@ -114,7 +165,7 @@ function init() {
 
 
   function addTetromino(array,shape,orientation) {
-    console.log('Check 3',array)
+    // console.log('Check 3',array)
     array.forEach(cell => {
       cells[cell].classList.add(tetrominoClass)
       cells[cell].classList.add(shape)
@@ -210,14 +261,12 @@ function init() {
       })
     } else if (key === 38) {
       removeTetromino(tetrominoPosition,shape,orientation)
-      console.log('Check 1',tetrominoPosition)
       if (orientation < 3){
         orientation = orientation + 1
       } else {
         orientation = 0
       }
       tetrominoPosition = createRotationArray(shape,orientation,tetrominoPosition)
-      console.log('Check 2',tetrominoPosition)
     } else {
       console.log('Invalid key')
     }
@@ -244,17 +293,14 @@ function init() {
       height = shapeObject.width
       width = shapeObject.height
     }
-    // console.log('height',height,'Width',width)
     const shapeArray = []
     for (let h = 0; h < height; h++) {
       if (h === 0) {
         for (let w = 0;w < width; w++) {
-          // console.log('h === 0', rotationPosition + w)
           shapeArray.push(rotationPosition + w)
         }
       } else {
         for (let w = 0;w < width; w++) {
-          // console.log('H more than 1: ',rotationPosition + (gridWidth * h),'H:',h)
           shapeArray.push(rotationPosition + (gridWidth * h))
         }
       }
@@ -262,9 +308,8 @@ function init() {
     const removeArray = shapeObject.blankTiles[orientation]
     for (let r = 0; r < removeArray.length; r++) {
       shapeArray.splice(removeArray[r],1)
-      console.log(removeArray[r])
+    //   console.log(removeArray[r])
     }
-    // console.log(shapeObject.name,shapeArray)
     return shapeArray
     
   }
