@@ -295,14 +295,10 @@ function init() {
           rowsToMove.forEach(cell => {
             let cellClassList = cell.classList
             cellClassList = [].slice.call(cellClassList)
-            
-            // cellClassList.join(',')
-            // console.log(cellClassList)
             const dropCell = Number(cell.innerText) + gridWidth
             cell.classList.remove(tetrominoClass,'set','square','bar','ell','revEll','cross','zed','revZed')
             for (let c = 0; c < cellClassList.length; c++){
-              console.log('Class added to ',c,cells[dropCell])
-              cells[dropCell].classList.add(c)
+              cells[dropCell].classList.add(cellClassList[c])
             }
           })
 
