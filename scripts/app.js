@@ -160,6 +160,7 @@ function init() {
         tetrominoPosition.forEach(cell => {
           cells[cell].classList.add('set')
         })
+        checkScore()
         const nextShape = shapes[Math.floor(Math.random() * shapes.length)]
         shapeToBeAdded.push(nextShape)
         shapeToBeAdded.shift()
@@ -167,12 +168,14 @@ function init() {
         shape = shapeToBeAdded[0].name
         shapeToBeAdded[1].createShape()
         orientation = 0
+        
         // console.log('Some check 2: ',tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set')))
       } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
         addTetromino(tetrominoPosition,shape,orientation)
         tetrominoPosition.forEach(cell => {
           cells[cell].classList.add('set')
         })
+        checkScore()
         const nextShape = shapes[Math.floor(Math.random() * shapes.length)]
         shapeToBeAdded.push(nextShape)
         shapeToBeAdded.shift()
@@ -247,10 +250,10 @@ function init() {
     }
     
     // const maxTile = tilesArray.sort(function(a,b) {return b - a })[0]
-    console.log('Rotation array 0: ',tilesArray)
+    // console.log('Rotation array 0: ',tilesArray)
 
     if (tilesArray.some(tile => tile % gridWidth === 0) && tilesArray.some(tile => tile % gridWidth === gridWidth - 1)) {
-      console.log('Filter',tilesArray.filter(tile => tile % gridWidth === 0))
+      // console.log('Filter',tilesArray.filter(tile => tile % gridWidth === 0))
       const overFitZero = tilesArray.filter(tile => tile % gridWidth === 0).length
       let overFit = tilesArray.filter(tile => tile % gridWidth < 5).length
       if (overFit === overFitZero) {
@@ -260,11 +263,10 @@ function init() {
         return tile -= overFit
       })
 
-    }
-    
+    }    
 
-    console.log('OG array: ',tetrominoPosition)
-    console.log('Rotation array 1: ',tilesArray)
+    // console.log('OG array: ',tetrominoPosition)
+    // console.log('Rotation array 1: ',tilesArray)
     return tilesArray
   }
 
@@ -280,7 +282,35 @@ function init() {
     }
   }
 
-  
+  function checkScore() {
+    for (let c = 0; c < cells.length; c++) {
+      if (c % gridWidth === 0){
+        const row = cells.slice(c, c + gridWidth)
+        const clearLine = row.every(cell => cell.classList.contains('set'))
+        if (clearLine) {
+          for (let i = 0; i < row.length; i++) {
+            row[i].classList.remove(tetrominoClass,'set','square','bar','ell','revEll','cross','zed','revZed')
+          }
+          const rowsToMove = cells.slice(0,c)
+          rowsToMove.forEach(cell => {
+            let cellClassList = cell.classList
+            cellClassList = [].slice.call(cellClassList)
+            
+            // cellClassList.join(',')
+            // console.log(cellClassList)
+            const dropCell = Number(cell.innerText) + gridWidth
+            cell.classList.remove(tetrominoClass,'set','square','bar','ell','revEll','cross','zed','revZed')
+            for (let c = 0; c < cellClassList.length; c++){
+              console.log('Class added to ',c,cells[dropCell])
+              cells[dropCell].classList.add(c)
+            }
+          })
+
+        }
+      }
+    }    
+  }
+
 
 
 
