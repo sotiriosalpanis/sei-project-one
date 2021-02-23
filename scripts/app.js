@@ -149,11 +149,11 @@ function init() {
   }
   const square = new TetrominoShape('square',2,[[1,2,5,6],[1,2,5,6],[1,2,5,6],[1,2,5,6]])
   const bar = new TetrominoShape('bar',4,[[4,5,6,7],[2,6,10,14],[8,9,10,11],[1,5,6,7]])
-  const cross = new TetrominoShape('cross',3,[[1,3,4,5]])
-  const zed = new TetrominoShape('zed',3,[[1,2,3,4]])
-  const revZed = new TetrominoShape('revZed',3,[[0,1,4,5]])
-  const ell = new TetrominoShape('ell',3,[[3,4,5,2]])
-  const revEll = new TetrominoShape('revEll',3,[[0,3,4,5]])
+  const cross = new TetrominoShape('cross',3,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]])
+  const zed = new TetrominoShape('zed',3,[[1,2,3,4],[1,4,5,8],[4,5,6,7],[0,3,4,7]])
+  const revZed = new TetrominoShape('revZed',3,[[0,1,4,5],[2,5,4,7],[3,4,7,8],[1,3,4,7]])
+  const ell = new TetrominoShape('ell',3,[[3,4,5,2],[1,4,7,8],[3,4,5,6],[0,1,4,7]])
+  const revEll = new TetrominoShape('revEll',3,[[0,3,4,5],[1,2,4,7],[3,4,5,8],[1,4,7,6]])
   
   shapes.push(square)
   shapes.push(bar)
