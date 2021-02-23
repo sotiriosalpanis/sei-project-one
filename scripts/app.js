@@ -1,15 +1,13 @@
 function init() {
   
   const grid = document.querySelector('.grid')
-  
   const gameSpeed = 500
-  
   const gridWidth = 10
   const gridHeight = 20
   const cellCount = gridWidth * gridHeight
-
   const cells = []
   const cellSize = 25
+  const score = 0
 
 
 
@@ -281,6 +279,11 @@ function init() {
       grid.classList.add('stop-game')
     }
   }
+  // * Scoring
+
+  const scoreSpan = document.querySelector('.current-score')
+  
+  scoreSpan.innerText = score
 
   function checkScore() {
     for (let c = 0; c < cells.length; c++) {
@@ -289,23 +292,27 @@ function init() {
         const clearLine = row.every(cell => cell.classList.contains('set'))
         if (clearLine) {
           for (let i = 0; i < row.length; i++) {
+            console.log('Remove: ',row[i].classList)
             row[i].classList.remove(tetrominoClass,'set','square','bar','ell','revEll','cross','zed','revZed')
           }
-          const rowsToMove = cells.slice(0,c)
-          rowsToMove.forEach(cell => {
+          const rowsToClear = cells.slice(0,c).reverse()
+          rowsToClear.forEach(cell => {
             let cellClassList = cell.classList
             cellClassList = [].slice.call(cellClassList)
             const dropCell = Number(cell.innerText) + gridWidth
             cell.classList.remove(tetrominoClass,'set','square','bar','ell','revEll','cross','zed','revZed')
             for (let c = 0; c < cellClassList.length; c++){
+              console.log('Cell, dropcell, class',cell,dropCell,cellClassList[c])
               cells[dropCell].classList.add(cellClassList[c])
+
             }
           })
-
+          scoreSpan.innerText = Number(scoreSpan.innerText) + 100
         }
       }
-    }    
-  }
+    }
+  }    
+
 
 
 
