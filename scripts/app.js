@@ -3,7 +3,7 @@ function init() {
   const grid = document.querySelector('.grid')
   let gameSpeed = 1000
   const gridWidth = 12
-  const gridHeight = 21
+  const gridHeight = 20
   const cellCount = gridWidth * gridHeight
   const cells = []
   const cellSize = 27
