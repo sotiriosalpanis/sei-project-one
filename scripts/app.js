@@ -217,13 +217,12 @@ function init() {
         orientation = 0
       }
       tetrominoPosition = createRotationArray(shape,orientation,tetrominoPosition)
-    } else if (key === 40) {
+    } else if (key === 40 && tetrominoPosition.every(cell => !(cell + gridWidth > cellCount)) && tetrominoPosition.every(cell => !cells[cell + gridWidth].classList.contains('set'))) {
       removeTetromino(tetrominoPosition,shape,orientation)
       const nextSpace = tetrominoPosition.map(cell => {
         cell += gridWidth
         return cell
       })
-      // addTetromino(nextSpace,shape,orientation)
       tetrominoPosition = nextSpace
     } else {
       console.log('Invalid key')
@@ -241,12 +240,10 @@ function init() {
 
     if (orientationIndex[0] >= 0 && orientationIndex[1] <= 0 ) {
       rotationPosition = tetrominoPosition[orientationIndex[0]]
-      // console.log('Check 1: ',rotationPosition)
     } else if (orientationIndex[0] < 0 || orientationIndex[1] > 0) {
       rotationPosition = (tetrominoPosition[0] + orientationIndex[0]) - (gridWidth * orientationIndex[1])
       console.log('Check ',orientation, rotationPosition, (tetrominoPosition[0] + orientationIndex[0]), (gridWidth * orientationIndex[1] + 1))
     }
-    // console.log(orientation, rotationPosition)
     for (let h = 0; h < shapeObject.size; h++) {
       if (h === 0) {
         for (let w = 0;w < shapeObject.size; w++) {
@@ -308,15 +305,12 @@ function init() {
             let cellClassList = cell.classList
             cellClassList = [].slice.call(cellClassList)
             const dropCell = Number(cell.id) + gridWidth
-            // console.log('ID ',cell.id,'Inner: ' ,cell.innerText)
             cell.classList.remove(tetrominoClass,'set','square','bar','ell','revEll','cross','zed','revZed')
             for (let c = 0; c < cellClassList.length; c++){
               cells[dropCell].classList.add(cellClassList[c])
             }
           })
           scoreSpan.innerText = Number(scoreSpan.innerText) + 100
-
-          // if scoreSpan
         }
       }
     }
