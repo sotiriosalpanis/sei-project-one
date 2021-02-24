@@ -126,11 +126,12 @@ function init() {
   let arrayStartingPosition
   let shape
   let orientation
+  let tetrominoCount = 1
 
   function dropTetromino() {
-    stopButton.classList.remove('hidden')
-    grid.classList.remove('hidden')
-    instructions.classList.add('hidden')
+    stopButton.classList.toggle('hidden')
+    grid.classList.toggle('hidden')
+    instructions.classList.toggle('hidden')
     document.addEventListener('keydown', handleKeyUp)
     const shapeObject = shapeToBeAdded[0]
     shape = shapeToBeAdded[0].name
@@ -140,6 +141,7 @@ function init() {
     arrayStartingPosition = shapeObject.createShapeArray()
     tetrominoPosition = arrayStartingPosition
     const dropTimerId = setInterval(() => {
+      console.log('Tetronimo count',tetrominoCount)
       if (cells[startingPosition].classList.contains('set') || grid.classList.contains('stop-game')) {
         console.log('Game stopped')
         clearInterval(dropTimerId)
@@ -159,6 +161,10 @@ function init() {
         hero.classList.remove(`${shapeToBeAdded[0].name}`)
         hero.classList.add(`${shapeToBeAdded[1].name}`)
         orientation = 0
+        tetrominoCount++
+        tetronimosDropped.forEach(span => {
+          span.innerText = tetrominoCount
+        })
       } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
         addTetromino(tetrominoPosition,shape,orientation)
         tetrominoPosition.forEach(cell => {
@@ -173,6 +179,10 @@ function init() {
         hero.classList.remove(`${shapeToBeAdded[0].name}`)
         hero.classList.add(`${shapeToBeAdded[1].name}`)
         orientation = 0
+        tetrominoCount++
+        tetronimosDropped.forEach(span => {
+          span.innerText = tetrominoCount
+        })
       } else {
         removeTetromino(tetrominoPosition,shape,orientation)
         const nextSpace = tetrominoPosition.map(cell => {
@@ -184,6 +194,8 @@ function init() {
       } 
     },gameSpeed)
   }
+
+  let rotationCount = 0 
 
   function handleKeyUp(event) {
     const key = event.keyCode
@@ -201,6 +213,8 @@ function init() {
         return cell -= 1
       })
     } else if (key === 38) {
+      rotationCount++
+      rotations.forEach((rotation => rotation.innerText = rotationCount))
       event.preventDefault()
       removeTetromino(tetrominoPosition,shape,orientation)
       if (orientation < 3){
@@ -332,6 +346,14 @@ function init() {
     }
     scoreSpan.innerText = score
   }
+  
+  const tetronimosDropped = document.querySelectorAll('.tetronimos-dropped')
+  const rotations = document.querySelectorAll('.rotations')
+
+
+
+
+
 
 }
 

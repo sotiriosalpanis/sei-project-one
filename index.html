@@ -23,14 +23,21 @@
       <div class="instructions">
         <h2>How to Play</h2>
         <ul>
-          <li>Move left or right by holding down the arrow keys</li>
-          <li>The 'up' key will rotate the active piece</li>
-          <li>The down key will make your piece drop quicker</li>
+          <li>Use the arrow keys to move left or right </li>
+          <li>Rotate the active piece using the up key</li>
+          <li>The down key will increase the drop speed</li>
           <li>Points are scored when a row is completed</li>
-          <li>Clearing multiple rows will lead to bonus points</li>
-          <li>As your points increase the game will beocme more difficult</li>
+          <li>Clearing multiple rows will score bonus points</li>
+          <li>The game will become more difficult as you score more points</li>
         </ul>
         <p> Good Luck and enjoy!</p>
+      </div>
+      <div class="stop-game hidden">
+        <h2>Would you like to stop playing?</h2>
+        <p>Your score is currently <span class="current-score"></span></p>
+        <p>So far you have cleared <span class="rows-cleared"></span> rows</p>
+        <p>You have dropped <span class="tetronimos-dropped"></span> tetronimos...</p>
+        <p>...and performed <span class="rotations"></span> rotations!</p>
       </div>
 
       <div class='game'>
@@ -42,7 +49,13 @@
         <div class="grid hidden"></div>
         <div class="scoreboard hidden">
           <p>Score</p> 
-            <p><span class="current-score"></span></p>
+          <p><span class="current-score"></span></p>
+          <p>Rows cleared</p>
+          <p><span class="rows-cleared"></span></p>
+          <p>Tetronimos</p>
+          <p><span class="tetronimos-dropped"></span></p>
+          <p>Rotations</p>
+          <p><span class="rotations"></span></p>
         </div>
       </div>
         
