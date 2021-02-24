@@ -1,6 +1,6 @@
 function init() {
   
-  const grid = document.querySelector('.grid')
+  
   let gameSpeed = 1000
   const gridWidth = 12
   const gridHeight = 20
@@ -8,15 +8,22 @@ function init() {
   const cells = []
   const cellSize = 27
   let score = 0
-
-  const hero = document.querySelector('.hero')
-  const instructions = document.querySelector('.instructions')
-  // console.log(instructions)
-
   const tetrominoClass = 'tetromino'
   let tetrominoPosition = Math.floor((gridWidth / 2) - 1)
   const startingPosition = Math.floor((gridWidth / 2) - 1)
 
+  // * Document queries
+  const grid = document.querySelector('.grid')
+  const hero = document.querySelector('.hero')
+  const instructions = document.querySelector('.instructions')
+  const startButton = document.querySelector('#play')
+  const stopButton = document.querySelector('#stop')
+  const scoreSpan = document.querySelectorAll('.current-score')
+  const scoreboard = document.querySelector('.scoreboard')
+  const tetronimosDropped = document.querySelectorAll('.tetronimos-dropped')
+  const rotations = document.querySelectorAll('.rotations')
+  const rowsCleared = document.querySelectorAll('.rows-cleared')
+  // console.log(rowsCleared)
 
   function createGrid() {
     for (let i = 0; i < cellCount; i++ ) {
@@ -37,11 +44,12 @@ function init() {
   const shapes = []
 
   class TetrominoShape {
-    constructor(name,size,tiles,orientationAxis) {
+    constructor(name,size,clearedCount,tiles,orientationAxis) {
       this.name = name
       this.size = size
       this.tiles = tiles
       this.orientationAxis = orientationAxis
+      this.clearedCount = clearedCount
     }
     createShape() {
       const shapeGrid = document.createElement('div')
@@ -83,13 +91,13 @@ function init() {
       return tilesArray
     }
   }
-  const square = new TetrominoShape('square',4,[[0,1,4,5],[0,1,4,5],[0,1,4,5],[0,1,4,5]],[[0,0],[0,0],[0,0],[0,0]])
-  const bar = new TetrominoShape('bar',4,[[4,5,6,7],[2,6,10,14],[8,9,10,11],[1,5,9,13]],[[-1,0],[-1,1],[-1,1],[0,1]])
-  const cross = new TetrominoShape('cross',3,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]],[[-1,0],[-1,0],[-1,0],[0,0]])
-  const zed = new TetrominoShape('zed',3,[[1,2,3,4],[1,4,5,8],[4,5,6,7],[0,3,4,7]],[[-1,0],[-1,0],[-1,1],[0,0]])
-  const revZed = new TetrominoShape('revZed',3,[[0,1,4,5],[2,5,4,7],[3,4,7,8],[1,3,4,6]],[[-1,0],[-1,0],[-1,1],[0,0]])
-  const ell = new TetrominoShape('ell',3,[[3,4,5,2],[1,4,7,8],[3,4,5,6],[0,1,4,7]],[[0,0],[0,-1],[-1,0],[0,1]])
-  const revEll = new TetrominoShape('revEll',3,[[0,3,4,5],[1,2,4,7],[3,4,5,8],[1,4,7,6]],[[-1,0],[0,0],[-1,0],[0,1]])
+  const square = new TetrominoShape('square',4,0,[[0,1,4,5],[0,1,4,5],[0,1,4,5],[0,1,4,5]],[[0,0],[0,0],[0,0],[0,0]])
+  const bar = new TetrominoShape('bar',4,0,[[4,5,6,7],[2,6,10,14],[8,9,10,11],[1,5,9,13]],[[-1,0],[-1,1],[-1,1],[0,1]])
+  const cross = new TetrominoShape('cross',3,0,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]],[[-1,0],[-1,0],[-1,0],[0,0]])
+  const zed = new TetrominoShape('zed',3,0,[[1,2,3,4],[1,4,5,8],[4,5,6,7],[0,3,4,7]],[[-1,0],[-1,0],[-1,1],[0,0]])
+  const revZed = new TetrominoShape('revZed',3,0,[[0,1,4,5],[2,5,4,7],[3,4,7,8],[1,3,4,6]],[[-1,0],[-1,0],[-1,1],[0,0]])
+  const ell = new TetrominoShape('ell',3,0,[[3,4,5,2],[1,4,7,8],[3,4,5,6],[0,1,4,7]],[[0,0],[0,-1],[-1,0],[0,1]])
+  const revEll = new TetrominoShape('revEll',3,0,[[0,3,4,5],[1,2,4,7],[3,4,5,8],[1,4,7,6]],[[-1,0],[0,0],[-1,0],[0,1]])
   
   shapes.push(square)
   shapes.push(bar)
@@ -122,6 +130,7 @@ function init() {
   const activeShape = shapes[Math.floor(Math.random() * shapes.length)]
   shapeToBeAdded.push(activeShape)
   hero.classList.add(`${activeShape.name}`)
+  startButton.classList.add(`${activeShape.name}`)
 
   let arrayStartingPosition
   let shape
@@ -129,6 +138,7 @@ function init() {
   let tetrominoCount = 1
 
   function dropTetromino() {
+    startButton.classList.toggle('hidden')
     stopButton.classList.toggle('hidden')
     grid.classList.toggle('hidden')
     instructions.classList.toggle('hidden')
@@ -141,7 +151,6 @@ function init() {
     arrayStartingPosition = shapeObject.createShapeArray()
     tetrominoPosition = arrayStartingPosition
     const dropTimerId = setInterval(() => {
-      console.log('Tetronimo count',tetrominoCount)
       if (cells[startingPosition].classList.contains('set') || grid.classList.contains('stop-game')) {
         console.log('Game stopped')
         clearInterval(dropTimerId)
@@ -288,8 +297,7 @@ function init() {
   }
 
   // Buttons!
-  const startButton = document.querySelector('#play')
-  const stopButton = document.querySelector('#stop')
+
 
   startButton.addEventListener('click',dropTetromino)
   stopButton.addEventListener('click',stopGrid)
@@ -299,14 +307,11 @@ function init() {
       grid.classList.add('stop-game')
     }
   }
-  // * Scoring
-
-  const scoreSpan = document.querySelector('.current-score')
-  const scoreboard = document.querySelector('.scoreboard')
-  
+  // * Scoring  
   scoreSpan.innerText = score
 
   let scoringRowCount
+  let clearedRows = 0
 
   function checkScore() {
     scoringRowCount = 0
@@ -316,6 +321,13 @@ function init() {
         const clearLine = row.every(cell => cell.classList.contains('set'))
         if (clearLine) {
           for (let i = 0; i < row.length; i++) {
+            let clearClassList = row[i].classList
+            clearClassList = [].slice.call(clearClassList)
+            shapes.forEach(tetShape => {
+              if (clearClassList.includes(tetShape.name)) {
+                tetShape.clearedCount++
+              }
+            })
             row[i].classList.remove(tetrominoClass,'set','square','bar','ell','revEll','cross','zed','revZed')
           }
           const rowsToClear = cells.slice(0,c).reverse()
@@ -335,6 +347,8 @@ function init() {
             console.log('Game speed', gameSpeed)
           }
           scoringRowCount += 1
+          clearedRows++
+          rowsCleared.forEach(rowCleared => rowCleared.innerText = clearedRows)
         }
       }
     }
@@ -344,15 +358,9 @@ function init() {
       score = parseInt(score + ((scoringRowCount / 5) * score))
       console.log('That\'s a Tetris!')
     }
-    scoreSpan.innerText = score
+    scoreSpan.forEach(span => span.innerText = score)
   }
   
-  const tetronimosDropped = document.querySelectorAll('.tetronimos-dropped')
-  const rotations = document.querySelectorAll('.rotations')
-
-
-
-
 
 
 }
