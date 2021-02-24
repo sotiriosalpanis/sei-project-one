@@ -201,13 +201,14 @@ function init() {
 
   function handleKeyUp(event) {
     const key = event.keyCode
-    // * 39 is right. 37 is left. 38 is up.
+    // * 39 is right. 37 is left. 38 is up. 40 is down.
     if (key === 39 && tetrominoPosition.every(cell => cell % gridWidth !== gridWidth - 1) && tetrominoPosition.every(cell => !cells[cell + 1].classList.contains('set')) ) {
       removeTetromino(tetrominoPosition,shape,orientation)
       tetrominoPosition = tetrominoPosition.map(cell => {
         return cell += 1
       })
     } else if (key === 37 && tetrominoPosition.every(cell => cell % gridWidth !== 0) && tetrominoPosition.every(cell => !cells[cell - 1].classList.contains('set')) ) {
+      removeTetromino(tetrominoPosition,shape,orientation)
       tetrominoPosition = tetrominoPosition.map(cell => {
         return cell -= 1
       })
@@ -219,6 +220,14 @@ function init() {
         orientation = 0
       }
       tetrominoPosition = createRotationArray(shape,orientation,tetrominoPosition)
+    } else if (key === 40) {
+      removeTetromino(tetrominoPosition,shape,orientation)
+      const nextSpace = tetrominoPosition.map(cell => {
+        cell += gridWidth
+        return cell
+      })
+      // addTetromino(nextSpace,shape,orientation)
+      tetrominoPosition = nextSpace
     } else {
       console.log('Invalid key')
     }
@@ -247,12 +256,8 @@ function init() {
     for (let r = 0; r < shapeObject.tiles[orientation].length; r++) {
       tilesArray.push(shapeArray[shapeObject.tiles[orientation][r]])
     }
-    
-    // const maxTile = tilesArray.sort(function(a,b) {return b - a })[0]
-    // console.log('Rotation array 0: ',tilesArray)
 
     if (tilesArray.some(tile => tile % gridWidth === 0) && tilesArray.some(tile => tile % gridWidth === gridWidth - 1)) {
-      // console.log('Filter',tilesArray.filter(tile => tile % gridWidth === 0))
       const overFitZero = tilesArray.filter(tile => tile % gridWidth === 0).length
       let overFit = tilesArray.filter(tile => tile % gridWidth < 5).length
       if (overFit === overFitZero) {
@@ -263,9 +268,6 @@ function init() {
       })
 
     }    
-
-    // console.log('OG array: ',tetrominoPosition)
-    // console.log('Rotation array 1: ',tilesArray)
     return tilesArray
   }
 
