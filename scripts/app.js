@@ -314,22 +314,17 @@ function init() {
           }
           scoringRowCount += 1
         }
-        
       }
-      
     }
-    if (scoringRowCount > 1) {
+    if (scoringRowCount > 1 && scoringRowCount < 4) {
       score = score + ((scoringRowCount / 10) * score)
+    } else if (scoringRowCount >= 4) {
+      score = score + ((scoringRowCount / 5) * score)
+      console.log('That\'s a Tetris!')
     }
     scoreSpan.innerText = score
   }
-
   
-
-
-
-
-
 }
 
 
