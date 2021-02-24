@@ -195,9 +195,6 @@ function init() {
   function handleKeyUp(event) {
     const key = event.keyCode
     // * 39 is right. 37 is left. 38 is up. 40 is down.
-    // if (key === 39 || key === 37 || key === 38 || key === 40) {
-    //   event.preventDefault()
-    //   console.log('Prevention is the key')
     if (key === 39 && tetrominoPosition.every(cell => cell % gridWidth !== gridWidth - 1) && tetrominoPosition.every(cell => !cells[cell + 1].classList.contains('set')) ) {
       event.preventDefault()
       console.log('Prevention is the key right')
@@ -275,8 +272,15 @@ function init() {
       tilesArray = tilesArray.map(tile => {
         return tile -= overFit
       })
+    }
 
-    }    
+    if (tilesArray.some(tile => cells[tile].classList.contains('set')) || tilesArray.some(tile => tile + gridWidth > cellCount)) {
+      tilesArray = tetrominoPosition
+      console.log('Blocked by other tetromino',tilesArray.some(tile => cells[tile].classList.contains('set')))
+      console.log('Blocked by grid end',tilesArray.some(tile => tile + gridWidth > cellCount))
+    }
+
+
     return tilesArray
   }
 
