@@ -202,13 +202,12 @@ function init() {
   function handleKeyUp(event) {
     const key = event.keyCode
     // * 39 is right. 37 is left. 38 is up.
-    if (key === 39 && tetrominoPosition.every(cell => cell % gridWidth !== gridWidth - 1) && tetrominoPosition.every(cell => !cells[cell + 1].classList.contains('set')) && tetrominoPosition.every(cell => cell + gridWidth <= cellCount - 1)) {
+    if (key === 39 && tetrominoPosition.every(cell => cell % gridWidth !== gridWidth - 1) && tetrominoPosition.every(cell => !cells[cell + 1].classList.contains('set')) ) {
       removeTetromino(tetrominoPosition,shape,orientation)
       tetrominoPosition = tetrominoPosition.map(cell => {
         return cell += 1
       })
-    } else if (key === 37 && tetrominoPosition.every(cell => cell % gridWidth !== 0) && tetrominoPosition.every(cell => !cells[cell - 1].classList.contains('set')) && tetrominoPosition.every(cell => cell + gridWidth <= cellCount - 1)) {
-      removeTetromino(tetrominoPosition,shape)
+    } else if (key === 37 && tetrominoPosition.every(cell => cell % gridWidth !== 0) && tetrominoPosition.every(cell => !cells[cell - 1].classList.contains('set')) ) {
       tetrominoPosition = tetrominoPosition.map(cell => {
         return cell -= 1
       })
