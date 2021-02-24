@@ -22,7 +22,7 @@ function init() {
   function createGrid() {
     for (let i = 0; i < cellCount; i++ ) {
       const cell = document.createElement('div')
-      // cell.textContent = i
+      cell.textContent = i
       cell.id  = i
       cell.classList.add('cell')
       cell.style.width = `${cellSize - 2}px`
@@ -97,19 +97,21 @@ function init() {
   }
   const square = new TetrominoShape('square',4,[[0,1,4,5],[0,1,4,5],[0,1,4,5],[0,1,4,5]],[0,0,0,0])
   const bar = new TetrominoShape('bar',4,[[4,5,6,7],[2,6,10,14],[8,9,10,11],[1,5,9,13]],[1,1,1,1])
-  const cross = new TetrominoShape('cross',3,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]],[0,0,0,0])
+  const cross = new TetrominoShape('cross',3,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]],[[-1,0],[-1,0],[-1,0],[0,0]])
+  // const cross = new TetrominoShape('cross',3,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]],[0,0,0,0])
+
   const zed = new TetrominoShape('zed',3,[[1,2,3,4],[1,4,5,8],[4,5,6,7],[0,3,4,7]],[1,2,1,2])
   const revZed = new TetrominoShape('revZed',3,[[0,1,4,5],[2,5,4,7],[3,4,7,8],[1,3,4,6]],[0,0,0,0])
   const ell = new TetrominoShape('ell',3,[[3,4,5,2],[1,4,7,8],[3,4,5,6],[0,1,4,7]],[1,0,1,0])
   const revEll = new TetrominoShape('revEll',3,[[0,3,4,5],[1,2,4,7],[3,4,5,8],[1,4,7,6]],[1,1,0,0])
   
-  shapes.push(square)
-  shapes.push(bar)
+  // shapes.push(square)
+  // shapes.push(bar)
   shapes.push(cross)
-  shapes.push(zed)
-  shapes.push(revZed)
-  shapes.push(ell)
-  shapes.push(revEll)
+  // shapes.push(zed)
+  // shapes.push(revZed)
+  // shapes.push(ell)
+  // shapes.push(revEll)
 
 
   function addTetromino(array,shape,orientation) {
@@ -154,7 +156,6 @@ function init() {
         clearInterval(dropTimerId)
         grid.classList.remove('stop-game')
         cells.forEach(cell => cell.classList.remove('square','bar','ell','revEll','cross','zed','revZed','set'))
-        // console.log('Some check 1: ',tetrominoPosition.some(space => space + gridWidth > cellCount - 1))
       } else if (tetrominoPosition.some(space => space + gridWidth > cellCount - 1) ) {
         addTetromino(tetrominoPosition,shape,orientation)
         tetrominoPosition.forEach(cell => {
@@ -166,11 +167,8 @@ function init() {
         shapeToBeAdded.shift()
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
-        // header.classList.add(shapeToBeAdded[0].name)
         shapeToBeAdded[1].createShape()
         orientation = 0
-        
-        // console.log('Some check 2: ',tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set')))
       } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
         addTetromino(tetrominoPosition,shape,orientation)
         tetrominoPosition.forEach(cell => {
@@ -241,7 +239,16 @@ function init() {
       return object.name === shape
     })
     const orientationIndex = shapeObject.orientationAxis[orientation]
-    const rotationPosition = tetrominoPosition[orientationIndex]
+    let rotationPosition 
+
+    if (orientationIndex[0] >= 0 && orientationIndex[1] <= 0 ) {
+      rotationPosition = tetrominoPosition[orientationIndex[0]]
+      // console.log('Check 1: ',rotationPosition)
+    } else if (orientationIndex[0] < 0 || orientationIndex[1] > 0) {
+      rotationPosition = (tetrominoPosition[0] + orientationIndex[0]) - (gridWidth * orientationIndex[1])
+      console.log('Check ',orientation, rotationPosition, (tetrominoPosition[0] + orientationIndex[0]), (gridWidth * orientationIndex[1] + 1))
+    }
+    // console.log(orientation, rotationPosition)
     for (let h = 0; h < shapeObject.size; h++) {
       if (h === 0) {
         for (let w = 0;w < shapeObject.size; w++) {
