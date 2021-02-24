@@ -1,5 +1,4 @@
 * {
-  /* border: 1px dashed purple ; */
   font-family: 'Roboto Mono', monospace;
 }
 
@@ -11,13 +10,15 @@
   max-width: 600px;
   margin: 15px auto;
   border: 1px solid black;
-  /* background-color: lightgrey; */
 }
+
+/* h1 {
+  margin: 20px;
+} */
 
 body {
   align-content: center;
   margin: 0 auto;
-  /* background-color: aqua; */
 }
 
 .instructions{
@@ -40,6 +41,11 @@ ul {
   max-width: 600px;
 }
 
+/* .control-banner {
+  width: 600px;
+  align-content: center;
+} */
+
 .scoreboard,
 .controls {
   display: flex;
@@ -54,11 +60,18 @@ button {
   text-align: center;
 }
 
+
 button {
   width: 100px;
   height: 30px;
   text-transform: uppercase;
+  font-size: 15px;
 }
+
+button:hover {
+  width: 105px;
+  height: 32px;
+} 
 
 .grid {
   display: flex;
@@ -84,43 +97,43 @@ button {
 }
 
 .square {
-  background-color: rgba(250, 250, 125, 0.7);
+  background-color: rgba(250, 250, 125, 0.5);
   border:1px solid rgba(250, 250, 125, 0.7);
   border-radius: 2px;
 }
 
 .bar {
-  background-color: rgba(146, 235, 235, 0.7);
+  background-color: rgba(146, 235, 235, 0.5);
   border:1px solid rgba(146, 235, 235, 0.7);
   border-radius: 2px;
 }
 
 .cross {
-  background-color: rgba(153, 81, 153, 0.7);
+  background-color: rgba(153, 81, 153, 0.5);
   border: 1px solid rgba(153, 81, 153, 0.7);
   border-radius: 2px;
 }
 
 .zed {
-  background-color: rgba(177, 233, 122, 0.7);
+  background-color: rgba(177, 233, 122, 0.5);
   border: 1px solid rgba(177, 233, 122, 0.7);
   border-radius: 2px;
 }
 
 .revZed {
-  background-color: rgba(245, 136, 136, 0.7);
+  background-color: rgba(245, 136, 136, 0.5);
   border: 1px solid rgba(245, 136, 136, 0.7);
   border-radius: 2px;
 }
 
 .ell {
-  background-color: rgba(243, 183, 73, 0.7);
+  background-color: rgba(243, 183, 73, 0.5);
   border: 1px solid rgba(243, 183, 73, 0.7);
   border-radius: 2px;
 }
 
 .revEll {
-  background-color: rgba(103, 103, 243, 0.7);
+  background-color: rgba(103, 103, 243, 0.5);
   border: 1px solid rgba(103, 103, 243, 0.7);
   border-radius: 2px;
 }
