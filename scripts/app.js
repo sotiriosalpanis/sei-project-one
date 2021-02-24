@@ -95,23 +95,21 @@ function init() {
       return tilesArray
     }
   }
-  const square = new TetrominoShape('square',4,[[0,1,4,5],[0,1,4,5],[0,1,4,5],[0,1,4,5]],[0,0,0,0])
-  const bar = new TetrominoShape('bar',4,[[4,5,6,7],[2,6,10,14],[8,9,10,11],[1,5,9,13]],[1,1,1,1])
+  const square = new TetrominoShape('square',4,[[0,1,4,5],[0,1,4,5],[0,1,4,5],[0,1,4,5]],[[0,0],[0,0],[0,0],[0,0]])
+  const bar = new TetrominoShape('bar',4,[[4,5,6,7],[2,6,10,14],[8,9,10,11],[1,5,9,13]],[[-1,-1],[-1,0],[-1,-1],[0,-1]])
   const cross = new TetrominoShape('cross',3,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]],[[-1,0],[-1,0],[-1,0],[0,0]])
-  // const cross = new TetrominoShape('cross',3,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]],[0,0,0,0])
-
-  const zed = new TetrominoShape('zed',3,[[1,2,3,4],[1,4,5,8],[4,5,6,7],[0,3,4,7]],[1,2,1,2])
-  const revZed = new TetrominoShape('revZed',3,[[0,1,4,5],[2,5,4,7],[3,4,7,8],[1,3,4,6]],[0,0,0,0])
-  const ell = new TetrominoShape('ell',3,[[3,4,5,2],[1,4,7,8],[3,4,5,6],[0,1,4,7]],[1,0,1,0])
-  const revEll = new TetrominoShape('revEll',3,[[0,3,4,5],[1,2,4,7],[3,4,5,8],[1,4,7,6]],[1,1,0,0])
+  const zed = new TetrominoShape('zed',3,[[1,2,3,4],[1,4,5,8],[4,5,6,7],[0,3,4,7]],[[-1,0],[-1,0],[-1,1],[0,0]])
+  const revZed = new TetrominoShape('revZed',3,[[0,1,4,5],[2,5,4,7],[3,4,7,8],[1,3,4,6]],[[-1,0],[-1,0],[-1,1],[0,0]])
+  const ell = new TetrominoShape('ell',3,[[3,4,5,2],[1,4,7,8],[3,4,5,6],[0,1,4,7]],[[0,0],[0,-1],[-1,0],[0,1]])
+  const revEll = new TetrominoShape('revEll',3,[[0,3,4,5],[1,2,4,7],[3,4,5,8],[1,4,7,6]],[[-1,0],[0,0],[-1,0],[0,1]])
   
-  // shapes.push(square)
-  // shapes.push(bar)
+  shapes.push(square)
+  shapes.push(bar)
   shapes.push(cross)
-  // shapes.push(zed)
-  // shapes.push(revZed)
-  // shapes.push(ell)
-  // shapes.push(revEll)
+  shapes.push(zed)
+  shapes.push(revZed)
+  shapes.push(ell)
+  shapes.push(revEll)
 
 
   function addTetromino(array,shape,orientation) {
