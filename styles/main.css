@@ -11,7 +11,7 @@
   max-width: 600px;
   margin: 15px auto;
   border: 1px solid black;
-  background-color: lightgrey;
+  /* background-color: lightgrey; */
 }
 
 body {
@@ -70,30 +70,37 @@ button {
 
 .square {
   background-color: yellow;
+  background-image: linear-gradient(white, yellow);
 }
 
 .bar {
   background-color: aqua;
+  background-image: linear-gradient(white,aqua);
 }
 
 .cross {
   background-color: purple;
+  background-image: linear-gradient(white, purple);
 }
 
 .zed {
   background-color: chartreuse;
+  background-image: linear-gradient(white, chartreuse);
 }
 
 .revZed {
   background-color: red;
+  background-image: linear-gradient(white, red);
 }
 
 .ell {
   background-color: orange;
+  background-image: linear-gradient(white, orange);
 }
 
 .revEll {
   background-color: blue;
+  background-image: linear-gradient(white, blue);
 }
 
 .tetromino {

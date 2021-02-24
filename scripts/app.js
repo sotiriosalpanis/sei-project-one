@@ -160,6 +160,7 @@ function init() {
         shapeToBeAdded.shift()
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
+        hero.classList.remove(`${shapeToBeAdded[0].name}`)
         hero.classList.add(`${shapeToBeAdded[1].name}`)
         // shapeToBeAdded[1].createShape()
         orientation = 0
@@ -175,6 +176,7 @@ function init() {
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
         // shapeToBeAdded[1].createShape()
+        hero.classList.remove(`${shapeToBeAdded[0].name}`)
         hero.classList.add(`${shapeToBeAdded[1].name}`)
         orientation = 0
       } else {
