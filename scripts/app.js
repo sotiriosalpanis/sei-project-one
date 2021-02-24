@@ -1,18 +1,15 @@
 function init() {
   
   const grid = document.querySelector('.grid')
-  const gameSpeed = 1000
+  let gameSpeed = 1000
   const gridWidth = 12
   const gridHeight = 21
   const cellCount = gridWidth * gridHeight
   const cells = []
   const cellSize = 27
-  const score = 0
+  let score = 0
 
   const hero = document.querySelector('.hero')
-  // console.log(hero)
-
-
 
   const tetrominoClass = 'tetromino'
   let tetrominoPosition = Math.floor((gridWidth / 2) - 1)
@@ -22,7 +19,6 @@ function init() {
   function createGrid() {
     for (let i = 0; i < cellCount; i++ ) {
       const cell = document.createElement('div')
-      // cell.textContent = i
       cell.id  = i
       cell.classList.add('cell')
       cell.style.width = `${cellSize - 2}px`
@@ -37,8 +33,6 @@ function init() {
   createGrid()
   
   const shapes = []
-
-  // const next = document.querySelector('.next')
 
   class TetrominoShape {
     constructor(name,size,tiles,orientationAxis) {
@@ -65,8 +59,6 @@ function init() {
       
         shapeGrid.appendChild(shapeCell)
       }
-      // next.innerHTML += this.name
-      // next.appendChild(shapeGrid)
       return shapeGrid
     }
     createShapeArray() {
@@ -143,7 +135,6 @@ function init() {
     arrayStartingPosition = shapeObject.createShapeArray()
     tetrominoPosition = arrayStartingPosition
     const dropTimerId = setInterval(() => {
-      console.log('Tetronimo added: ',shape)
       if (cells[startingPosition].classList.contains('set') || grid.classList.contains('stop-game')) {
         console.log('Game stopped')
         clearInterval(dropTimerId)
@@ -162,7 +153,6 @@ function init() {
         shape = shapeToBeAdded[0].name
         hero.classList.remove(`${shapeToBeAdded[0].name}`)
         hero.classList.add(`${shapeToBeAdded[1].name}`)
-        // shapeToBeAdded[1].createShape()
         orientation = 0
       } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
         addTetromino(tetrominoPosition,shape,orientation)
@@ -175,7 +165,6 @@ function init() {
         shapeToBeAdded.shift()
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
-        // shapeToBeAdded[1].createShape()
         hero.classList.remove(`${shapeToBeAdded[0].name}`)
         hero.classList.add(`${shapeToBeAdded[1].name}`)
         orientation = 0
@@ -315,12 +304,20 @@ function init() {
               cells[dropCell].classList.add(cellClassList[c])
             }
           })
-          scoreSpan.innerText = Number(scoreSpan.innerText) + 100
+          score += 100
+          scoreSpan.innerText = score
+          
+          if (score % 500 === 0) {
+            gameSpeed = gameSpeed * .90
+            console.log('Game speed', gameSpeed)
+          }
         }
       }
     }
-  }    
+  }
 
+  // * Game difficulty - for every 500 points scored - 90% gamespeed
+  
 
 
 

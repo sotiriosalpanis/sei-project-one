@@ -70,37 +70,37 @@ button {
 
 .square {
   background-color: yellow;
-  background-image: linear-gradient(white, yellow);
+  background-image: linear-gradient(90deg, yellow, white, yellow);
 }
 
 .bar {
   background-color: aqua;
-  background-image: linear-gradient(white,aqua);
+  background-image: linear-gradient( 90deg, aqua, white,aqua);
 }
 
 .cross {
   background-color: purple;
-  background-image: linear-gradient(white, purple);
+  background-image: linear-gradient(90deg,purple,white, purple);
 }
 
 .zed {
   background-color: chartreuse;
-  background-image: linear-gradient(white, chartreuse);
+  background-image: linear-gradient(90deg,chartreuse,white, chartreuse);
 }
 
 .revZed {
   background-color: red;
-  background-image: linear-gradient(white, red);
+  background-image: linear-gradient(90deg,red,white, red);
 }
 
 .ell {
   background-color: orange;
-  background-image: linear-gradient(white, orange);
+  background-image: linear-gradient(90deg,orange,white, orange);
 }
 
 .revEll {
   background-color: blue;
-  background-image: linear-gradient(white, blue);
+  background-image: linear-gradient(90deg, blue,white, blue);
 }
 
 .tetromino {
