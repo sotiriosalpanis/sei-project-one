@@ -317,7 +317,7 @@ function init() {
           score += 100
           scoreboard.classList.remove('hidden')
           if (score % 500 === 0) {
-            gameSpeed = gameSpeed * .90
+            gameSpeed = gameSpeed * .85
             console.log('Game speed', gameSpeed)
           }
           scoringRowCount += 1
@@ -325,9 +325,9 @@ function init() {
       }
     }
     if (scoringRowCount > 1 && scoringRowCount < 4) {
-      score = score + ((scoringRowCount / 10) * score)
+      score = parseInt(score + ((scoringRowCount / 10) * score))
     } else if (scoringRowCount >= 4) {
-      score = score + ((scoringRowCount / 5) * score)
+      score = parseInt(score + ((scoringRowCount / 5) * score))
       console.log('That\'s a Tetris!')
     }
     scoreSpan.innerText = score
