@@ -9,8 +9,8 @@ function init() {
   const cellSize = 25
   const score = 0
 
-  const header = document.querySelector('header')
-  // console.log(header)
+  const hero = document.querySelector('.hero')
+  console.log(hero)
 
 
 
@@ -22,7 +22,8 @@ function init() {
   function createGrid() {
     for (let i = 0; i < cellCount; i++ ) {
       const cell = document.createElement('div')
-      cell.textContent = i
+      // cell.textContent = i
+      cell.id  = i
       cell.classList.add('cell')
       cell.style.width = `${cellSize - 2}px`
       cell.style.height = `${cellSize - 2}px`
@@ -301,7 +302,8 @@ function init() {
           rowsToClear.forEach(cell => {
             let cellClassList = cell.classList
             cellClassList = [].slice.call(cellClassList)
-            const dropCell = Number(cell.innerText) + gridWidth
+            const dropCell = Number(cell.id) + gridWidth
+            // console.log('ID ',cell.id,'Inner: ' ,cell.innerText)
             cell.classList.remove(tetrominoClass,'set','square','bar','ell','revEll','cross','zed','revZed')
             for (let c = 0; c < cellClassList.length; c++){
               cells[dropCell].classList.add(cellClassList[c])
