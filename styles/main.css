@@ -6,21 +6,40 @@
 .hero {
   text-transform: uppercase;
   text-align: center;
-  
+  max-width: 60%;
+  margin: 30px auto;
 }
 
 body {
   align-content: center;
   margin: 0 auto;
+  /* background-color: aqua; */
 }
 
 .game {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-evenly;
 
   align-content: center;
   margin: 0 auto;
+
+  max-width: 60%;
 }
+
+.scoreboard,
+.controls {
+  display: flex;
+  flex-direction: column;
+  width: 90px;
+}
+
+.scoreboard p,
+button {
+  margin: 5px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
 
 .grid {
   display: flex;

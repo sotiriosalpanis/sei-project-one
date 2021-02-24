@@ -6,7 +6,7 @@ function init() {
   const gridHeight = 21
   const cellCount = gridWidth * gridHeight
   const cells = []
-  const cellSize = 25
+  const cellSize = 27
   const score = 0
 
   const hero = document.querySelector('.hero')
