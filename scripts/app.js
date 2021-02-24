@@ -117,9 +117,9 @@ function init() {
   const shapeToBeAdded = []
   const nextShape = shapes[Math.floor(Math.random() * shapes.length)]
   shapeToBeAdded.push(nextShape)
-  hero.classList.add(`${nextShape.name}`)
   const activeShape = shapes[Math.floor(Math.random() * shapes.length)]
   shapeToBeAdded.push(activeShape)
+  hero.classList.add(`${activeShape.name}`)
 
   let arrayStartingPosition
   let shape
@@ -282,6 +282,7 @@ function init() {
   // * Scoring
 
   const scoreSpan = document.querySelector('.current-score')
+  const scoreboard = document.querySelector('.scoreboard')
   
   scoreSpan.innerText = score
 
@@ -308,6 +309,7 @@ function init() {
             }
           })
           score += 100
+          scoreboard.classList.remove('hidden')
           if (score % 500 === 0) {
             gameSpeed = gameSpeed * .90
             console.log('Game speed', gameSpeed)
@@ -324,7 +326,7 @@ function init() {
     }
     scoreSpan.innerText = score
   }
-  
+
 }
 
 
