@@ -1,5 +1,12 @@
 * {
   border: 1px dashed purple ;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.hero {
+  text-transform: uppercase;
+  text-align: center;
+  
 }
 
 body {
