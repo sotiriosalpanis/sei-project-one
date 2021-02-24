@@ -10,7 +10,7 @@ function init() {
   const score = 0
 
   const hero = document.querySelector('.hero')
-  console.log(hero)
+  // console.log(hero)
 
 
 
@@ -35,14 +35,10 @@ function init() {
   }
 
   createGrid()
-
-
-  // ? Rotation https://www.w3schools.com/jsref/prop_style_transform.asp ?
-
   
   const shapes = []
 
-  const next = document.querySelector('.next')
+  // const next = document.querySelector('.next')
 
   class TetrominoShape {
     constructor(name,size,tiles,orientationAxis) {
@@ -69,9 +65,8 @@ function init() {
       
         shapeGrid.appendChild(shapeCell)
       }
-      next.innerHTML += this.name
-      next.appendChild(shapeGrid)
-      
+      // next.innerHTML += this.name
+      // next.appendChild(shapeGrid)
       return shapeGrid
     }
     createShapeArray() {
@@ -91,7 +86,6 @@ function init() {
       for (let r = 0; r < this.tiles[0].length; r++) {
         tilesArray.push(shapeArray[this.tiles[0][r]])
       }
-      // console.log('tiles',tilesArray)
       return tilesArray
     }
   }
@@ -131,6 +125,7 @@ function init() {
   const shapeToBeAdded = []
   const nextShape = shapes[Math.floor(Math.random() * shapes.length)]
   shapeToBeAdded.push(nextShape)
+  hero.classList.add(`${nextShape.name}`)
   const activeShape = shapes[Math.floor(Math.random() * shapes.length)]
   shapeToBeAdded.push(activeShape)
 
@@ -165,7 +160,8 @@ function init() {
         shapeToBeAdded.shift()
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
-        shapeToBeAdded[1].createShape()
+        hero.classList.add(`${shapeToBeAdded[1].name}`)
+        // shapeToBeAdded[1].createShape()
         orientation = 0
       } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
         addTetromino(tetrominoPosition,shape,orientation)
@@ -178,7 +174,8 @@ function init() {
         shapeToBeAdded.shift()
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
-        shapeToBeAdded[1].createShape()
+        // shapeToBeAdded[1].createShape()
+        hero.classList.add(`${shapeToBeAdded[1].name}`)
         orientation = 0
       } else {
         removeTetromino(tetrominoPosition,shape,orientation)
@@ -197,21 +194,18 @@ function init() {
     // * 39 is right. 37 is left. 38 is up. 40 is down.
     if (key === 39 && tetrominoPosition.every(cell => cell % gridWidth !== gridWidth - 1) && tetrominoPosition.every(cell => !cells[cell + 1].classList.contains('set')) ) {
       event.preventDefault()
-      console.log('Prevention is the key right')
       removeTetromino(tetrominoPosition,shape,orientation)
       tetrominoPosition = tetrominoPosition.map(cell => {
         return cell += 1
       })
     } else if (key === 37 && tetrominoPosition.every(cell => cell % gridWidth !== 0) && tetrominoPosition.every(cell => !cells[cell - 1].classList.contains('set')) ) {
       event.preventDefault()
-      console.log('Prevention is the key left')
       removeTetromino(tetrominoPosition,shape,orientation)
       tetrominoPosition = tetrominoPosition.map(cell => {
         return cell -= 1
       })
     } else if (key === 38) {
       event.preventDefault()
-      console.log('Prevention is the key up')
       removeTetromino(tetrominoPosition,shape,orientation)
       if (orientation < 3){
         orientation = orientation + 1
@@ -221,7 +215,6 @@ function init() {
       tetrominoPosition = createRotationArray(shape,orientation,tetrominoPosition)
     } else if (key === 40 && tetrominoPosition.every(cell => !(cell + gridWidth > cellCount)) && tetrominoPosition.every(cell => !cells[cell + gridWidth].classList.contains('set'))) {
       event.preventDefault()
-      console.log('Prevention is the key down')
       removeTetromino(tetrominoPosition,shape,orientation)
       const nextSpace = tetrominoPosition.map(cell => {
         cell += gridWidth
@@ -266,8 +259,10 @@ function init() {
     if (tilesArray.some(tile => tile % gridWidth === 0) && tilesArray.some(tile => tile % gridWidth === gridWidth - 1)) {
       const overFitZero = tilesArray.filter(tile => tile % gridWidth === 0).length
       let overFit = tilesArray.filter(tile => tile % gridWidth < 5).length
-      if (overFit === overFitZero) {
+      if (overFit === overFitZero ) {
         overFit = 1
+      } else if (overFit  > 2) {
+        overFit = -1
       }
       tilesArray = tilesArray.map(tile => {
         return tile -= overFit
@@ -276,8 +271,6 @@ function init() {
 
     if (tilesArray.some(tile => cells[tile].classList.contains('set')) || tilesArray.some(tile => tile + gridWidth > cellCount)) {
       tilesArray = tetrominoPosition
-      console.log('Blocked by other tetromino',tilesArray.some(tile => cells[tile].classList.contains('set')))
-      console.log('Blocked by grid end',tilesArray.some(tile => tile + gridWidth > cellCount))
     }
 
 

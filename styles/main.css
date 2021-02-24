@@ -11,6 +11,7 @@
   max-width: 600px;
   margin: 15px auto;
   border: 1px solid black;
+  background-color: lightgrey;
 }
 
 body {
@@ -69,37 +70,30 @@ button {
 
 .square {
   background-color: yellow;
-  display: none;
 }
 
 .bar {
   background-color: aqua;
-  display: none;
 }
 
 .cross {
   background-color: purple;
-  display: none;
 }
 
 .zed {
   background-color: chartreuse;
-  display: none;
 }
 
 .revZed {
   background-color: red;
-  display: none;
 }
 
 .ell {
   background-color: orange;
-  display: none;
 }
 
 .revEll {
   background-color: blue;
-  display: none;
 }
 
 .tetromino {
