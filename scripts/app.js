@@ -22,7 +22,7 @@ function init() {
   function createGrid() {
     for (let i = 0; i < cellCount; i++ ) {
       const cell = document.createElement('div')
-      cell.textContent = i
+      // cell.textContent = i
       cell.id  = i
       cell.classList.add('cell')
       cell.style.width = `${cellSize - 2}px`
@@ -96,7 +96,7 @@ function init() {
     }
   }
   const square = new TetrominoShape('square',4,[[0,1,4,5],[0,1,4,5],[0,1,4,5],[0,1,4,5]],[[0,0],[0,0],[0,0],[0,0]])
-  const bar = new TetrominoShape('bar',4,[[4,5,6,7],[2,6,10,14],[8,9,10,11],[1,5,9,13]],[[-1,-1],[-1,0],[-1,-1],[0,-1]])
+  const bar = new TetrominoShape('bar',4,[[4,5,6,7],[2,6,10,14],[8,9,10,11],[1,5,9,13]],[[-1,0],[-1,1],[-1,1],[0,1]])
   const cross = new TetrominoShape('cross',3,[[1,3,4,5],[1,4,5,7],[3,4,5,7],[1,3,4,7]],[[-1,0],[-1,0],[-1,0],[0,0]])
   const zed = new TetrominoShape('zed',3,[[1,2,3,4],[1,4,5,8],[4,5,6,7],[0,3,4,7]],[[-1,0],[-1,0],[-1,1],[0,0]])
   const revZed = new TetrominoShape('revZed',3,[[0,1,4,5],[2,5,4,7],[3,4,7,8],[1,3,4,6]],[[-1,0],[-1,0],[-1,1],[0,0]])
@@ -139,7 +139,7 @@ function init() {
   let orientation
 
   function dropTetromino() {
-    document.addEventListener('keyup', handleKeyUp)
+    document.addEventListener('keydown', handleKeyUp)
     const shapeObject = shapeToBeAdded[0]
     shape = shapeToBeAdded[0].name
     orientation = 0
@@ -192,24 +192,29 @@ function init() {
     },gameSpeed)
   }
 
-
-
-  
-
   function handleKeyUp(event) {
     const key = event.keyCode
     // * 39 is right. 37 is left. 38 is up. 40 is down.
+    // if (key === 39 || key === 37 || key === 38 || key === 40) {
+    //   event.preventDefault()
+    //   console.log('Prevention is the key')
     if (key === 39 && tetrominoPosition.every(cell => cell % gridWidth !== gridWidth - 1) && tetrominoPosition.every(cell => !cells[cell + 1].classList.contains('set')) ) {
+      event.preventDefault()
+      console.log('Prevention is the key right')
       removeTetromino(tetrominoPosition,shape,orientation)
       tetrominoPosition = tetrominoPosition.map(cell => {
         return cell += 1
       })
     } else if (key === 37 && tetrominoPosition.every(cell => cell % gridWidth !== 0) && tetrominoPosition.every(cell => !cells[cell - 1].classList.contains('set')) ) {
+      event.preventDefault()
+      console.log('Prevention is the key left')
       removeTetromino(tetrominoPosition,shape,orientation)
       tetrominoPosition = tetrominoPosition.map(cell => {
         return cell -= 1
       })
     } else if (key === 38) {
+      event.preventDefault()
+      console.log('Prevention is the key up')
       removeTetromino(tetrominoPosition,shape,orientation)
       if (orientation < 3){
         orientation = orientation + 1
@@ -218,6 +223,8 @@ function init() {
       }
       tetrominoPosition = createRotationArray(shape,orientation,tetrominoPosition)
     } else if (key === 40 && tetrominoPosition.every(cell => !(cell + gridWidth > cellCount)) && tetrominoPosition.every(cell => !cells[cell + gridWidth].classList.contains('set'))) {
+      event.preventDefault()
+      console.log('Prevention is the key down')
       removeTetromino(tetrominoPosition,shape,orientation)
       const nextSpace = tetrominoPosition.map(cell => {
         cell += gridWidth
@@ -242,7 +249,6 @@ function init() {
       rotationPosition = tetrominoPosition[orientationIndex[0]]
     } else if (orientationIndex[0] < 0 || orientationIndex[1] > 0) {
       rotationPosition = (tetrominoPosition[0] + orientationIndex[0]) - (gridWidth * orientationIndex[1])
-      console.log('Check ',orientation, rotationPosition, (tetrominoPosition[0] + orientationIndex[0]), (gridWidth * orientationIndex[1] + 1))
     }
     for (let h = 0; h < shapeObject.size; h++) {
       if (h === 0) {
