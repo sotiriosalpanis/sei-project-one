@@ -14,20 +14,32 @@
 </head>
 <body>
     <header>
-      <div class='hero next'>
+      <div class='hero'>
         <h1>Tetris</h1>
       </div>
     </header>
 
     <main>
-      
+      <div class="instructions">
+        <h2>How to Play</h2>
+        <ul>
+          <li>Move left or right by holding down the arrow keys</li>
+          <li>The 'up' key will rotate the active piece</li>
+          <li>The down key will make your piece drop quicker</li>
+          <li>Points are scored when a row is completed</li>
+          <li>Clearing multiple rows will lead to bonus points</li>
+          <li>As your points increase the game will beocme more difficult</li>
+        </ul>
+        <p> Good Luck and enjoy!</p>
+      </div>
 
       <div class='game'>
+        
         <div class="controls">
           <button id="play">Play</button>
-          <button id="stop">Stop</button>
+          <button id="stop" class="hidden">Stop</button>
         </div>
-        <div class="grid"></div>
+        <div class="grid hidden"></div>
         <div class="scoreboard hidden">
           <p>Score</p> 
             <p><span class="current-score"></span></p>

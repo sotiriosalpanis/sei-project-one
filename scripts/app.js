@@ -10,6 +10,8 @@ function init() {
   let score = 0
 
   const hero = document.querySelector('.hero')
+  const instructions = document.querySelector('.instructions')
+  // console.log(instructions)
 
   const tetrominoClass = 'tetromino'
   let tetrominoPosition = Math.floor((gridWidth / 2) - 1)
@@ -126,6 +128,9 @@ function init() {
   let orientation
 
   function dropTetromino() {
+    stopButton.classList.remove('hidden')
+    grid.classList.remove('hidden')
+    instructions.classList.add('hidden')
     document.addEventListener('keydown', handleKeyUp)
     const shapeObject = shapeToBeAdded[0]
     shape = shapeToBeAdded[0].name
@@ -271,6 +276,7 @@ function init() {
   // Buttons!
   const startButton = document.querySelector('#play')
   const stopButton = document.querySelector('#stop')
+
   startButton.addEventListener('click',dropTetromino)
   stopButton.addEventListener('click',stopGrid)
 
