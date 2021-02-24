@@ -285,7 +285,10 @@ function init() {
   
   scoreSpan.innerText = score
 
+  let scoringRowCount
+
   function checkScore() {
+    scoringRowCount = 0
     for (let c = 0; c < cells.length; c++) {
       if (c % gridWidth === 0){
         const row = cells.slice(c, c + gridWidth)
@@ -305,18 +308,22 @@ function init() {
             }
           })
           score += 100
-          scoreSpan.innerText = score
-          
           if (score % 500 === 0) {
             gameSpeed = gameSpeed * .90
             console.log('Game speed', gameSpeed)
           }
+          scoringRowCount += 1
         }
+        
       }
+      
     }
+    if (scoringRowCount > 1) {
+      score = score + ((scoringRowCount / 10) * score)
+    }
+    scoreSpan.innerText = score
   }
 
-  // * Game difficulty - for every 500 points scored - 90% gamespeed
   
 
 
