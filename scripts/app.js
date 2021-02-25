@@ -24,6 +24,10 @@ function init() {
   const tetronimosDropped = document.querySelectorAll('.tetronimos-dropped')
   const rotations = document.querySelectorAll('.rotations')
   const rowsCleared = document.querySelectorAll('.rows-cleared')
+  const stopScoreboard = document.querySelector('.stop-game')
+  const game = document.querySelector('.game')
+  const playAgainButton = document.querySelector('#play-again')
+  
 
   
 
@@ -159,8 +163,9 @@ function init() {
       if (cells[startingPosition].classList.contains('set') || grid.classList.contains('stop-game')) {
         console.log('Game stopped')
         clearInterval(dropTimerId)
-        grid.classList.remove('stop-game')
-        cells.forEach(cell => cell.classList.remove('square','bar','ell','revEll','cross','zed','revZed','set'))
+        game.classList.toggle('hidden')
+        stopScoreboard.classList.toggle('hidden')
+        stopScoreboard.classList.add(`${shapeToBeAdded[0].name}`)
       } else if (tetrominoPosition.some(space => space + gridWidth > cellCount - 1) ) {
         addTetromino(tetrominoPosition,shape,orientation)
         tetrominoPosition.forEach(cell => {
@@ -177,7 +182,7 @@ function init() {
         orientation = 0
         tetrominoCount++
         if (tetrominoCount % 5 === 0) {
-          updateStyling(tetrominoCount,'tetronimonCount')
+          updateStyling(tetrominoCount,'tetronimoCount')
         }
         tetronimosDropped.forEach(span => {
           span.innerText = tetrominoCount
@@ -312,9 +317,14 @@ function init() {
 
   startButton.addEventListener('click',dropTetromino)
   stopButton.addEventListener('click',stopGrid)
+  playAgainButton.addEventListener('click',reloadPage)
+
+  function reloadPage() {
+    location.reload()
+  }
 
   function stopGrid(){
-    if (window.confirm('Are you sure you want to stop the game? All progress will be lost')) {
+    if (window.confirm(`Are you sure you want to stop the game? Your score of ${score} will be lost. Press cancel to resume`)) {
       grid.classList.add('stop-game')
     }
   }
@@ -356,6 +366,7 @@ function init() {
           // scoreboard.classList.remove('hidden')
           if (score % 500 === 0) {
             gameSpeed = gameSpeed * .75
+            updateStyling(0,'gameSpeedIncreased')
             console.log('Game speed', gameSpeed)
           }
           scoringRowCount += 1
@@ -375,9 +386,9 @@ function init() {
   
 
   // Styling
-
   const rgbArray = [255,255,255]
   let rgbRowsArray = []
+  let animationTransition = 15
   function updateStyling(tetrisValue,tetrisValueType) {
 
     if (tetrisValueType === 'tetronimoCount') {
@@ -400,12 +411,14 @@ function init() {
       rgbRowsArray.push(Math.floor(Math.random() * tetrisValue))
       rgbRowsArray.push(Math.floor(Math.random() * tetrisValue))
       rgbRowsArray.push(Math.floor(Math.random() * tetrisValue))
+    } else if (tetrisValueType === 'gameSpeedIncreased') {
+      animationTransition = animationTransition * .75
     }
     
 
     body.style.background = `linear-gradient(${rotationCount + 15}deg,rgb(${rgbArray[0]}, ${rgbArray[1]}, ${rgbArray[2]}), rgb(255, 255, 255), rgb(${rgbRowsArray[0]}, ${rgbRowsArray[1]}, ${rgbRowsArray[2]}),rgb(255, 255, 255))`
     body.style.backgroundSize = '400% 400%'
-
+    body.style.animation = `gradient ${animationTransition}s ease infinite`
   }
 
 }

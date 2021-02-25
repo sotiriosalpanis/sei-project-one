@@ -33,16 +33,18 @@
           <li>Clearing multiple rows will score bonus points</li>
           <li>The game will become more difficult as you score more points</li>
         </ul>
-        <!-- <p>Your actions will affect the way the page is styled!</p> -->
-        <p> Good Luck and enjoy!</p>
+        <p class="emphasise">Your actions will affect the way the page is styled</p>
+        <p class="emphasise"> Good Luck and enjoy!</p>
         <button id="play">Play</button>
       </div>
       <div class="stop-game hidden">
-        <h2>Would you like to stop playing?</h2>
-        <p>Your score is currently <span class="current-score"></span></p>
-        <p>So far you have cleared <span class="rows-cleared"></span> rows</p>
-        <p>You have dropped <span class="tetronimos-dropped"></span> tetronimos...</p>
-        <p>...and performed <span class="rotations"></span> rotations!</p>
+        <h2>Your game has come to an end</h2>
+        <h3>Here are your game stats:</h3>
+        <p>Your scored <span class="current-score"></span>points</p>
+        <p>And you cleared <span class="rows-cleared"></span> rows</p>
+        <p>In total <span class="tetronimos-dropped"></span> tetronimos were dropped</p>
+        <p>...and performed <span class="rotations"></span> tetronimo rotations</p>
+        <button id='play-again'>Play again</button>
       </div>
 
       <div class='game'>
@@ -51,13 +53,6 @@
         <div class="scoreboard hidden">
           <p>Score</p> 
           <p><span class="current-score"></span></p>
-          
-          <!-- <p>Rows cleared</p>
-          <p><span class="rows-cleared"></span></p>
-          <p>Tetronimos</p>
-          <p><span class="tetronimos-dropped"></span></p>
-          <p>Rotations</p>
-          <p><span class="rotations"></span></p> -->
 
           <!-- <div class="square tetronimo-cleared"></div>
           <div class="bar tetronimo-cleared"></div>
