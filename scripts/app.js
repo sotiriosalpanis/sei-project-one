@@ -185,6 +185,7 @@ function init() {
         }
         tetronimosDropped.forEach(span => {
           span.innerText = tetrominoCount
+          span.classList.remove('hidden')
         })
       } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
         addTetromino(tetrominoPosition,shape,orientation)
@@ -206,7 +207,9 @@ function init() {
         }
         tetronimosDropped.forEach(span => {
           span.innerText = tetrominoCount
+          span.classList.remove('hidden')
         })
+    
       } else {
         removeTetromino(tetrominoPosition,shape,orientation)
         const nextSpace = tetrominoPosition.map(cell => {
@@ -239,6 +242,7 @@ function init() {
     } else if (key === 38) {
       rotationCount++
       rotations.forEach((rotation => rotation.innerText = rotationCount))
+      rotations.forEach((rotation => rotation.classList.remove('hidden')))
       event.preventDefault()
       removeTetromino(tetrominoPosition,shape,orientation)
       if (orientation < 3){
@@ -362,15 +366,15 @@ function init() {
           })
           score += 100
           updateStyling(score,'rowsCleared')
-          // scoreboard.classList.remove('hidden')
           if (score % 500 === 0) {
-            gameSpeed = gameSpeed * .75
+            gameSpeed = gameSpeed * .7
             updateStyling(0,'gameSpeedIncreased')
             console.log('Game speed', gameSpeed)
           }
           scoringRowCount += 1
           clearedRows++
           rowsCleared.forEach(rowCleared => rowCleared.innerText = clearedRows)
+          rowsCleared.forEach(rowCleared => rowCleared.classList.remove('hidden'))
         }
       }
     }
@@ -381,6 +385,7 @@ function init() {
       console.log('That\'s a Tetris!')
     }
     scoreSpan.forEach(span => span.innerText = score)
+    scoreSpan.forEach(span => span.classList.remove('hidden'))
   }
   
 
@@ -411,7 +416,7 @@ function init() {
       rgbRowsArray.push(Math.floor(Math.random() * tetrisValue))
       rgbRowsArray.push(Math.floor(Math.random() * tetrisValue))
     } else if (tetrisValueType === 'gameSpeedIncreased') {
-      animationTransition = animationTransition * .75
+      animationTransition = animationTransition * .7
     }
     
 
