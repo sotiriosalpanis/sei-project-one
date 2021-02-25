@@ -13,6 +13,7 @@ function init() {
   const startingPosition = Math.floor((gridWidth / 2) - 1)
 
   // * Document queries
+  const body = document.querySelector('body')
   const grid = document.querySelector('.grid')
   const hero = document.querySelector('.hero')
   const instructions = document.querySelector('.instructions')
@@ -24,9 +25,8 @@ function init() {
   const rotations = document.querySelectorAll('.rotations')
   const rowsCleared = document.querySelectorAll('.rows-cleared')
 
-  // console.log(controls)
-  scoreSpan.innerText = score 
   
+
   function createGrid() {
     for (let i = 0; i < cellCount; i++ ) {
       const cell = document.createElement('div')
@@ -133,7 +133,6 @@ function init() {
   shapeToBeAdded.push(activeShape)
   hero.classList.add(`${activeShape.name}`)
   startButton.classList.add(`${activeShape.name}`)
-  // stopButton.classList.add(`${nextShape.name}`)
   instructions.classList.add(`${nextShape.name}`)
 
   let arrayStartingPosition
@@ -142,6 +141,7 @@ function init() {
   let tetrominoCount = 1
 
   function dropTetromino() {
+    body.classList.add('animate')
     startButton.classList.toggle('hidden')
     stopButton.classList.toggle('hidden')
     scoreboard.classList.toggle('hidden')
@@ -168,17 +168,15 @@ function init() {
         })
         checkScore()
         const nextShape = shapes[Math.floor(Math.random() * shapes.length)]
-        // stopButton.classList.remove(`${shapeToBeAdded[1].name}`)
         shapeToBeAdded.push(nextShape)
         shapeToBeAdded.shift()
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
         hero.classList.remove(`${shapeToBeAdded[0].name}`)
         hero.classList.add(`${shapeToBeAdded[1].name}`)
-        // stopButton.classList.remove(`${shapeToBeAdded[1].name}`)
-        // stopButton.classList.add(`${shapeToBeAdded[0].name}`)
         orientation = 0
         tetrominoCount++
+        updateStyling(tetrominoCount)
         tetronimosDropped.forEach(span => {
           span.innerText = tetrominoCount
         })
@@ -189,16 +187,15 @@ function init() {
         })
         checkScore()
         const nextShape = shapes[Math.floor(Math.random() * shapes.length)]
-        // stopButton.classList.remove(`${shapeToBeAdded[1].name}`)
         shapeToBeAdded.push(nextShape)
         shapeToBeAdded.shift()
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
         hero.classList.remove(`${shapeToBeAdded[0].name}`)
         hero.classList.add(`${shapeToBeAdded[1].name}`)
-        // stopButton.classList.add(`${shapeToBeAdded[0].name}`)
         orientation = 0
         tetrominoCount++
+        updateStyling(tetrominoCount)
         tetronimosDropped.forEach(span => {
           span.innerText = tetrominoCount
         })
@@ -351,7 +348,7 @@ function init() {
             }
           })
           score += 100
-          scoreboard.classList.remove('hidden')
+          // scoreboard.classList.remove('hidden')
           if (score % 500 === 0) {
             gameSpeed = gameSpeed * .85
             console.log('Game speed', gameSpeed)
@@ -371,6 +368,31 @@ function init() {
     scoreSpan.forEach(span => span.innerText = score)
   }
   
+
+  // Styling
+  // tetronimoCount - RGB 1 - randomly pick a value and decrement by 1 - 5
+
+  function updateStyling(tetronimoCount) {
+    const bodyStyle = window.getComputedStyle(body)
+    const background = bodyStyle.getPropertyValue('background').split(',')
+    // console.log('Before',bodyStyle.getPropertyValue('background'))
+    // Tetronimo update
+    const rgb1 = background.slice(4,7)
+
+    const regexRBG = rgb1.map(rgbValue => {
+      return rgbValue = rgbValue.match(/\d+/)[0]
+    })
+    
+
+    const randomRGB = Math.floor(Math.random() * regexRBG.length)
+    // add check if current rbg is near 0
+    const rbgUpdate = regexRBG[randomRGB] - Math.floor(Math.random() * tetronimoCount)
+    regexRBG[randomRGB] = String(0)
+    // regexRBG[randomRGB] = String(rbgUpdate)
+
+    body.style.background = `linear-gradient(-45deg,rgb(${regexRBG[0]}, ${regexRBG[1]}, ${regexRBG[2]}), rgb(255, 255, 255),rgb(255, 255, 255), rgb(255, 255, 255));`
+    console.log(regexRBG)
+  }
 
 
 }
