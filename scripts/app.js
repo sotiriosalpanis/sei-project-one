@@ -176,7 +176,9 @@ function init() {
         hero.classList.add(`${shapeToBeAdded[1].name}`)
         orientation = 0
         tetrominoCount++
-        updateStyling(tetrominoCount,'tetronimonCount')
+        if (tetrominoCount % 5 === 0) {
+          updateStyling(tetrominoCount,'tetronimonCount')
+        }
         tetronimosDropped.forEach(span => {
           span.innerText = tetrominoCount
         })
@@ -195,7 +197,9 @@ function init() {
         hero.classList.add(`${shapeToBeAdded[1].name}`)
         orientation = 0
         tetrominoCount++
-        updateStyling(tetrominoCount,'tetronimonCount')
+        if (tetrominoCount % 5 === 0) {
+          updateStyling(tetrominoCount,'tetronimoCount')
+        }
         tetronimosDropped.forEach(span => {
           span.innerText = tetrominoCount
         })
@@ -348,9 +352,10 @@ function init() {
             }
           })
           score += 100
+          updateStyling(score,'rowsCleared')
           // scoreboard.classList.remove('hidden')
           if (score % 500 === 0) {
-            gameSpeed = gameSpeed * .8
+            gameSpeed = gameSpeed * .75
             console.log('Game speed', gameSpeed)
           }
           scoringRowCount += 1
@@ -370,12 +375,12 @@ function init() {
   
 
   // Styling
-  // tetronimoCount - RGB 1 - randomly pick a value and decrement by 1 - 5
 
   const rgbArray = [255,255,255]
+  let rgbRowsArray = []
   function updateStyling(tetrisValue,tetrisValueType) {
 
-    if (tetrisValueType === 'tetronimonCount') {
+    if (tetrisValueType === 'tetronimoCount') {
       const randomRGB = Math.floor(Math.random() * rgbArray.length)
       const rgbFactor = tetrisValue * 5
       if (rgbArray[randomRGB] - rgbFactor > 50) {
@@ -385,11 +390,23 @@ function init() {
         const rbgUpdate = rgbArray[randomRGB] + Math.floor(Math.random() * rgbFactor)
         rgbArray[randomRGB] = rbgUpdate
       }  
-      body.style.background = `linear-gradient(-45deg,rgb(${rgbArray[0]}, ${rgbArray[1]}, ${rgbArray[2]}), rgb(255, 255, 255), rgb(255, 255, 255), rgb(255, 255, 255))`
+    } else if (tetrisValueType === 'rowsCleared') {
+      if (tetrisValue > 2500) {
+        tetrisValue = 255 - (tetrisValue / 100)
+      } else {
+        tetrisValue = 255 - (tetrisValue / 10)
+      }
+      rgbRowsArray = []
+      rgbRowsArray.push(Math.floor(Math.random() * tetrisValue))
+      rgbRowsArray.push(Math.floor(Math.random() * tetrisValue))
+      rgbRowsArray.push(Math.floor(Math.random() * tetrisValue))
     }
     
-  }
 
+    body.style.background = `linear-gradient(${rotationCount + 15}deg,rgb(${rgbArray[0]}, ${rgbArray[1]}, ${rgbArray[2]}), rgb(255, 255, 255), rgb(${rgbRowsArray[0]}, ${rgbRowsArray[1]}, ${rgbRowsArray[2]}),rgb(255, 255, 255))`
+    body.style.backgroundSize = '400% 400%'
+
+  }
 
 }
 
