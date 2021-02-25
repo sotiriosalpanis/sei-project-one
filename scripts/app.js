@@ -26,7 +26,7 @@ function init() {
   const rowsCleared = document.querySelectorAll('.rows-cleared')
   const stopScoreboard = document.querySelector('.stop-game')
   const game = document.querySelector('.game')
-  const playAgainButton = document.querySelector('#play-again')
+  const playAgainButton = document.querySelector('.play-again')
   
 
   
@@ -145,7 +145,6 @@ function init() {
   let tetrominoCount = 1
 
   function dropTetromino() {
-    body.classList.add('animate')
     startButton.classList.toggle('hidden')
     stopButton.classList.toggle('hidden')
     scoreboard.classList.toggle('hidden')
