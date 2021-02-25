@@ -1,7 +1,7 @@
 function init() {
   
   
-  let gameSpeed = 1000
+  let gameSpeed = 800
   const gridWidth = 12
   const gridHeight = 20
   const cellCount = gridWidth * gridHeight
@@ -176,7 +176,7 @@ function init() {
         hero.classList.add(`${shapeToBeAdded[1].name}`)
         orientation = 0
         tetrominoCount++
-        updateStyling(tetrominoCount)
+        updateStyling(tetrominoCount,'tetronimonCount')
         tetronimosDropped.forEach(span => {
           span.innerText = tetrominoCount
         })
@@ -195,7 +195,7 @@ function init() {
         hero.classList.add(`${shapeToBeAdded[1].name}`)
         orientation = 0
         tetrominoCount++
-        updateStyling(tetrominoCount)
+        updateStyling(tetrominoCount,'tetronimonCount')
         tetronimosDropped.forEach(span => {
           span.innerText = tetrominoCount
         })
@@ -350,7 +350,7 @@ function init() {
           score += 100
           // scoreboard.classList.remove('hidden')
           if (score % 500 === 0) {
-            gameSpeed = gameSpeed * .85
+            gameSpeed = gameSpeed * .8
             console.log('Game speed', gameSpeed)
           }
           scoringRowCount += 1
@@ -372,26 +372,22 @@ function init() {
   // Styling
   // tetronimoCount - RGB 1 - randomly pick a value and decrement by 1 - 5
 
-  function updateStyling(tetronimoCount) {
-    const bodyStyle = window.getComputedStyle(body)
-    const background = bodyStyle.getPropertyValue('background').split(',')
-    // console.log('Before',bodyStyle.getPropertyValue('background'))
-    // Tetronimo update
-    const rgb1 = background.slice(4,7)
+  const rgbArray = [255,255,255]
+  function updateStyling(tetrisValue,tetrisValueType) {
 
-    const regexRBG = rgb1.map(rgbValue => {
-      return rgbValue = rgbValue.match(/\d+/)[0]
-    })
+    if (tetrisValueType === 'tetronimonCount') {
+      const randomRGB = Math.floor(Math.random() * rgbArray.length)
+      const rgbFactor = tetrisValue * 5
+      if (rgbArray[randomRGB] - rgbFactor > 50) {
+        const rbgUpdate = rgbArray[randomRGB] - Math.floor(Math.random() * rgbFactor)
+        rgbArray[randomRGB] = rbgUpdate
+      } else {
+        const rbgUpdate = rgbArray[randomRGB] + Math.floor(Math.random() * rgbFactor)
+        rgbArray[randomRGB] = rbgUpdate
+      }  
+      body.style.background = `linear-gradient(-45deg,rgb(${rgbArray[0]}, ${rgbArray[1]}, ${rgbArray[2]}), rgb(255, 255, 255), rgb(255, 255, 255), rgb(255, 255, 255))`
+    }
     
-
-    const randomRGB = Math.floor(Math.random() * regexRBG.length)
-    // add check if current rbg is near 0
-    const rbgUpdate = regexRBG[randomRGB] - Math.floor(Math.random() * tetronimoCount)
-    regexRBG[randomRGB] = String(0)
-    // regexRBG[randomRGB] = String(rbgUpdate)
-
-    body.style.background = `linear-gradient(-45deg,rgb(${regexRBG[0]}, ${regexRBG[1]}, ${regexRBG[2]}), rgb(255, 255, 255),rgb(255, 255, 255), rgb(255, 255, 255));`
-    console.log(regexRBG)
   }
 
 
