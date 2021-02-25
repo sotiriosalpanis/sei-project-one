@@ -25,7 +25,8 @@ function init() {
   const rowsCleared = document.querySelectorAll('.rows-cleared')
 
   // console.log(controls)
-
+  scoreSpan.innerText = score 
+  
   function createGrid() {
     for (let i = 0; i < cellCount; i++ ) {
       const cell = document.createElement('div')
