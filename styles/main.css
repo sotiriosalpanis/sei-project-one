@@ -31,6 +31,10 @@ ul {
   list-style: none;
 }
 
+li {
+  margin: 7px;
+}
+
 .game {
   display: flex;
   justify-content: space-evenly;
@@ -39,12 +43,8 @@ ul {
   margin: 0 auto;
 
   max-width: 600px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
-
-/* .control-banner {
-  width: 600px;
-  align-content: center;
-} */
 
 .scoreboard,
 .controls {
@@ -56,8 +56,13 @@ ul {
 .scoreboard p,
 button {
   margin: 5px 0;
-  font-weight: bold;
   text-align: center;
+}
+
+.stop {
+  background-color: rgba(245, 136, 136, 0.5);
+  border: 1px solid rgba(245, 136, 136, 0.7);
+  border-radius: 2px;
 }
 
 
@@ -76,7 +81,7 @@ button:hover {
 .grid {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
+  margin: auto;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 

@@ -132,7 +132,7 @@ function init() {
   shapeToBeAdded.push(activeShape)
   hero.classList.add(`${activeShape.name}`)
   startButton.classList.add(`${activeShape.name}`)
-  stopButton.classList.add(`${nextShape.name}`)
+  // stopButton.classList.add(`${nextShape.name}`)
   instructions.classList.add(`${nextShape.name}`)
 
   let arrayStartingPosition
@@ -143,6 +143,7 @@ function init() {
   function dropTetromino() {
     startButton.classList.toggle('hidden')
     stopButton.classList.toggle('hidden')
+    scoreboard.classList.toggle('hidden')
     grid.classList.toggle('hidden')
     instructions.classList.toggle('hidden')
     document.addEventListener('keydown', handleKeyUp)
@@ -166,15 +167,15 @@ function init() {
         })
         checkScore()
         const nextShape = shapes[Math.floor(Math.random() * shapes.length)]
-        stopButton.classList.remove(`${shapeToBeAdded[1].name}`)
+        // stopButton.classList.remove(`${shapeToBeAdded[1].name}`)
         shapeToBeAdded.push(nextShape)
         shapeToBeAdded.shift()
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
         hero.classList.remove(`${shapeToBeAdded[0].name}`)
         hero.classList.add(`${shapeToBeAdded[1].name}`)
-        stopButton.classList.remove(`${shapeToBeAdded[1].name}`)
-        stopButton.classList.add(`${shapeToBeAdded[0].name}`)
+        // stopButton.classList.remove(`${shapeToBeAdded[1].name}`)
+        // stopButton.classList.add(`${shapeToBeAdded[0].name}`)
         orientation = 0
         tetrominoCount++
         tetronimosDropped.forEach(span => {
@@ -187,14 +188,14 @@ function init() {
         })
         checkScore()
         const nextShape = shapes[Math.floor(Math.random() * shapes.length)]
-        stopButton.classList.remove(`${shapeToBeAdded[1].name}`)
+        // stopButton.classList.remove(`${shapeToBeAdded[1].name}`)
         shapeToBeAdded.push(nextShape)
         shapeToBeAdded.shift()
         tetrominoPosition = shapeToBeAdded[0].createShapeArray()
         shape = shapeToBeAdded[0].name
         hero.classList.remove(`${shapeToBeAdded[0].name}`)
         hero.classList.add(`${shapeToBeAdded[1].name}`)
-        stopButton.classList.add(`${shapeToBeAdded[0].name}`)
+        // stopButton.classList.add(`${shapeToBeAdded[0].name}`)
         orientation = 0
         tetrominoCount++
         tetronimosDropped.forEach(span => {
