@@ -1,24 +1,9 @@
-* {
-  font-family: 'Roboto Mono', monospace;
-  color:  rgb(71, 71, 71);
-}
-
-.hero {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 35px;
-  text-align: center;
-  max-width: 600px;
-  margin: 15px auto;
-  border: 1px solid black;
-}
-
-
 body {
   align-content: center;
-  margin: auto;
+  margin: 20px auto;
   padding: 0, 30px;
-  /* border: 1px solid black; */
+  font-family: 'Roboto Mono', monospace;
+  color:  rgb(71, 71, 71);
 }
 
 @keyframes gradient {
@@ -32,6 +17,17 @@ body {
 		background-position: 0% 50%;
 	}
 }
+
+main {
+  border: 1px solid rgb(71, 71, 71);
+  border-radius: 100px;
+  max-width: 80%;
+  align-content: center;
+  margin: 20px auto;
+  background-color: rgba(255, 255, 255,0.7);
+}
+
+
 
 .cell {
   background-image: radial-gradient(rgba(250, 249, 249,0.2), rgba(253, 253, 253,0.3));
@@ -85,6 +81,35 @@ body {
   border-radius: 2px;
 }
 
+.hero,
+.game {
+  max-width: 600px;
+  border-left: 1px solid rgb(71, 71, 71);
+  border-right: 1px solid rgb(71, 71, 71);
+}
+
+.hero {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 35px;
+  text-align: center;
+  margin: 15px auto 0 auto;
+  border: 1px solid black;
+  border-top: 1px solid rgb(71, 71, 71);
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.game {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  margin: 0 auto 15px auto;
+  border-bottom: 1px solid rgb(71, 71, 71);
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
 .stop-game,
 .instructions{
   text-align: center;
@@ -108,18 +133,7 @@ p {
   font-weight: bolder;
 }
 
-.game {
-  display: flex;
-  justify-content: space-evenly;
 
-  align-content: center;
-  margin: 0 auto;
-
-  max-width: 600px;
-  border: 2px solid rgba(71, 71, 71, 0.5);
-  padding: 10px;
-  border-radius: 15px;
-}
 
 .scoreboard,
 .controls {
@@ -151,7 +165,6 @@ button {
   text-transform: uppercase;
   font-size: 15px;
   border-radius: 15px;
-  font-weight: bold;
 }
 
 button:hover {
@@ -176,19 +189,6 @@ button:hover {
   flex-wrap: wrap;
   margin: auto;
   border: 1px solid  rgba(71, 71, 71, 0.5);
-}
-
-
-.next {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start
-}
-
-
-
-.tetromino {
-  display: block;
 }
 
 .hidden {
