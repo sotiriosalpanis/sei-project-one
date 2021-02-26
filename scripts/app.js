@@ -27,10 +27,15 @@ function init() {
   const stopScoreboard = document.querySelector('.stop-game')
   const game = document.querySelector('.game')
   const playAgainButton = document.querySelector('.play-again')
+  const finalScore = document.querySelector('.final-score')
   const finalRows = document.querySelector('.final-rows')
   const finalTetronimos = document.querySelector('.final-tetronimos')
   const finalRotations = document.querySelector('.final-rotations')
+  const topScore = document.querySelector('#top-score')
+  const newTopScore = document.querySelector('.new-top-score')
+  // console.log(finalScore)
 
+  const myStorage = window.localStorage
 
   
 
@@ -166,6 +171,13 @@ function init() {
       if (cells[startingPosition].classList.contains('set') || grid.classList.contains('stop-game')) {
         console.log('Game stopped')
         clearInterval(dropTimerId)
+        const topScoreLocal = myStorage.getItem('topScore')
+        if (topScoreLocal < score) {
+          myStorage.setItem('topScore',score)
+          topScore.innerText = score
+          newTopScore.classList.toggle('hidden')
+          finalScore.classList.toggle('hidden')
+        }
         game.classList.toggle('hidden')
         stopScoreboard.classList.toggle('hidden')
         stopScoreboard.classList.add(`${shapeToBeAdded[0].name}`)

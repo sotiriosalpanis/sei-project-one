@@ -32,11 +32,13 @@
       </div>
       <div class="stop-game hidden">
         <h2>Your game has come to an end</h2>
+        <p class="new-top-score hidden">Congratulations! Your score of <span class="current-score"></span> is a new high score!</p>
         <p class="emphasise">Here are some of your game stats</p>
         <p class="final-score">You scored <span class="current-score">0</span> points</p>
-        <p class="final-rows hidden">And you cleared <span class="rows-cleared"></span> rows</p>
+        <p class="final-rows hidden">You cleared <span class="rows-cleared"></span> rows</p>
         <p class="final-tetronimos hidden">In total <span class="tetronimos-dropped"></span> tetronimos were dropped</p>
         <p class="final-rotations hidden">...and you performed <span class="rotations"></span> rotations</p>
+        <p class='top-score emphasise'>Your top score is <span id="top-score"></span></p>
         <button class='play-again control'>Play again</button>
       </div>
 
@@ -45,7 +47,7 @@
         <div class="grid hidden"></div>
         <div class="scoreboard hidden">
           <h3 class="emphasise">Score</h3> 
-          <p class="emphasise"<span class="current-score">0</span></p>
+          <p class="emphasise"><span class="current-score">0</span></p>
 
           <!-- <div class="square tetronimo-cleared"></div>
           <div class="bar tetronimo-cleared"></div>
