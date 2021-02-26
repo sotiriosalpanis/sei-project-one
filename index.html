@@ -35,20 +35,20 @@
         </ul>
         <p class="emphasise">Your actions will affect the way the page is styled</p>
         <p class="emphasise"> Good Luck and enjoy!</p>
-        <button id="play">Play</button>
+        <button class="control" id="play">Play</button>
       </div>
       <div class="stop-game hidden">
         <h2>Your game has come to an end</h2>
         <h3>Here are some of your game stats</h3>
-        <p>You scored <span class="current-score hidden"></span> points</p>
-        <p>And you cleared <span class="rows-cleared hidden"></span> rows</p>
-        <p>In total <span class="tetronimos-dropped hidden"></span> tetronimos were dropped</p>
-        <p>...and you performed <span class="rotations hidden"></span> tetronimo rotations</p>
-        <button class='play-again'>Play again</button>
+        <p class="final-score hidden">You scored <span class="current-score"></span> points</p>
+        <p class="final-rows ">And you cleared <span class="rows-cleared"></span> rows</p>
+        <p class="final-tetronimos hidden">In total <span class="tetronimos-dropped"></span> tetronimos were dropped</p>
+        <p class="final-rotations hidden">...and you performed <span class="rotations"></span> tetronimo rotations</p>
+        <button class='play-again control'>Play again</button>
       </div>
 
       <div class='game hidden'>
-        <button id="stop" class="hidden stop">Stop</button>
+        <button id="stop" class="hidden stop control">Stop</button>
         <div class="grid hidden"></div>
         <div class="scoreboard hidden">
           <h3>Score</h3> 

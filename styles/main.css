@@ -32,109 +32,9 @@ body {
 	}
 }
 
-.stop-game,
-.instructions{
-  text-align: center;
-  max-width: 600px;
-  margin: 15px auto;
-}
-
-ul {
-  list-style: none;
-}
-
-li {
-  margin: 7px;
-}
-
-p {
-  font-weight: bold;
-}
-
-.emphasise {
-  font-weight: bolder;
-}
-
-.game {
-  display: flex;
-  justify-content: space-evenly;
-
-  align-content: center;
-  margin: 0 auto;
-
-  max-width: 600px;
-  border: 2px solid rgba(71, 71, 71, 0.5);
-  padding: 10px;
-  border-radius: 15px;
-}
-
 .cell {
   background-image: radial-gradient(rgba(250, 249, 249,0.2), rgba(253, 253, 253,0.3));
   border: 1px dashed rgba(107, 107, 107, 0.1);
-}
-
-.scoreboard,
-.controls {
-  display: flex;
-  flex-direction: column;
-  width: 90px;
-}
-
-.scoreboard,
-button {
-  margin: 20px auto;
-  text-align: center;
-}
-
-.scoreboard h3 {
-  margin: 0 auto;
-}
-
-.stop {
-  background-color: rgba(245, 136, 136, 0.6);
-  border: 1px solid rgba(245, 136, 136, 0.8);
-  border-radius: 2px;
-}
-
-
-button {
-  width: 100px;
-  height: 30px;
-  text-transform: uppercase;
-  font-size: 15px;
-  border-radius: 15px;
-  font-weight: bold;
-}
-
-button:hover {
-  width: 105px;
-  height: 32px;
-}
-
-.play-again {
-  width: 180px;
-  height: 30px;
-  background-color: lavender;
-  border: 2px solid rgb(71, 71, 71);
-}
-
-.play-again:hover {
-  width: 185px;
-  height: 32px;
-}
-
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-  margin: auto;
-  border: 1px solid  rgba(71, 71, 71, 0.5);
-}
-
-
-.next {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start
 }
 
 .shape {
@@ -183,6 +83,108 @@ button:hover {
   border: 1px solid rgba(103, 103, 243, 0.8);
   border-radius: 2px;
 }
+
+.stop-game,
+.instructions{
+  text-align: center;
+  max-width: 600px;
+  margin: 15px auto;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  margin: 7px;
+}
+
+p {
+  font-weight: bold;
+}
+
+.emphasise {
+  font-weight: bolder;
+}
+
+.game {
+  display: flex;
+  justify-content: space-evenly;
+
+  align-content: center;
+  margin: 0 auto;
+
+  max-width: 600px;
+  border: 2px solid rgba(71, 71, 71, 0.5);
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.scoreboard,
+.controls {
+  display: flex;
+  flex-direction: column;
+  width: 90px;
+}
+
+.scoreboard,
+button {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.scoreboard h3 {
+  margin: 0 auto;
+}
+
+.stop {
+  background-color: rgba(245, 136, 136, 0.6);
+  border: 1px solid rgba(245, 136, 136, 0.8);
+  border-radius: 2px;
+}
+
+
+.control {
+  width: 100px;
+  height: 30px;
+  text-transform: uppercase;
+  font-size: 15px;
+  border-radius: 15px;
+  font-weight: bold;
+}
+
+button:hover {
+  width: 105px;
+  height: 32px;
+}
+
+.play-again {
+  width: 180px;
+  height: 30px;
+  background-color: lavender;
+  border: 2px solid rgb(71, 71, 71);
+}
+
+.play-again:hover {
+  width: 185px;
+  height: 32px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  border: 1px solid  rgba(71, 71, 71, 0.5);
+}
+
+
+.next {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start
+}
+
+
 
 .tetromino {
   display: block;
