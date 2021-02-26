@@ -27,7 +27,6 @@ function init() {
   const stopScoreboard = document.querySelector('.stop-game')
   const game = document.querySelector('.game')
   const playAgainButton = document.querySelector('.play-again')
-  const finalScore = document.querySelector('.final-score')
   const finalRows = document.querySelector('.final-rows')
   const finalTetronimos = document.querySelector('.final-tetronimos')
   const finalRotations = document.querySelector('.final-rotations')
@@ -379,7 +378,7 @@ function init() {
           scoringRowCount += 1
           clearedRows++
           rowsCleared.forEach(rowCleared => rowCleared.innerText = clearedRows)
-          finalRotations.classList.remove('hidden')
+          finalRows.classList.remove('hidden')
         }
       }
     }
@@ -390,7 +389,6 @@ function init() {
       console.log('That\'s a Tetris!')
     }
     scoreSpan.forEach(span => span.innerText = score)
-    finalScore.classList.remove('hidden')
   }
   
 

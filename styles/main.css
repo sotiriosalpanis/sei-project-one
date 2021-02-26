@@ -1,8 +1,9 @@
 body {
+  /* display: flex; */
   align-content: center;
   margin: 20px auto;
   padding: 0, 30px;
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'Play', sans-serif;
   color:  rgb(71, 71, 71);
 }
 
@@ -23,14 +24,19 @@ main {
   border-radius: 100px;
   max-width: 80%;
   align-content: center;
-  margin: 20px auto;
-  background-color: rgba(255, 255, 255,0.7);
+  margin: 3% auto;
+  background-color: rgba(255, 255, 255,0.5);
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Orbitron', sans-serif;
 }
 
 
-
 .cell {
-  background-image: radial-gradient(rgba(250, 249, 249,0.2), rgba(253, 253, 253,0.3));
+  background-image: radial-gradient(rgba(250, 249, 249,0.1), rgba(253, 253, 253,0.2s));
   border: 1px dashed rgba(107, 107, 107, 0.1);
 }
 
@@ -82,7 +88,9 @@ main {
 }
 
 .hero,
-.game {
+.game,
+.stop-game,
+.instructions {
   max-width: 600px;
   border-left: 1px solid rgb(71, 71, 71);
   border-right: 1px solid rgb(71, 71, 71);
@@ -93,7 +101,7 @@ main {
   font-weight: bold;
   font-size: 35px;
   text-align: center;
-  margin: 15px auto 0 auto;
+  margin: 20px auto 0 auto;
   border: 1px solid black;
   border-top: 1px solid rgb(71, 71, 71);
   border-top-right-radius: 20px;
@@ -104,7 +112,13 @@ main {
   display: flex;
   justify-content: space-evenly;
   align-content: center;
-  margin: 0 auto 15px auto;
+
+}
+
+.stop-game,
+.instructions,
+.game {
+  margin: 0 auto 20px auto;
   border-bottom: 1px solid rgb(71, 71, 71);
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
@@ -113,8 +127,6 @@ main {
 .stop-game,
 .instructions{
   text-align: center;
-  max-width: 600px;
-  margin: 15px auto;
 }
 
 ul {
@@ -132,8 +144,6 @@ p {
 .emphasise {
   font-weight: bolder;
 }
-
-
 
 .scoreboard,
 .controls {
@@ -188,7 +198,9 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
   margin: auto;
-  border: 1px solid  rgba(71, 71, 71, 0.5);
+  border-left: 1px solid  rgba(71, 71, 71, 0.5);
+  border-right: 1px solid  rgba(71, 71, 71, 0.5);
+  border-radius: 2px;
 }
 
 .hidden {

@@ -7,8 +7,9 @@
 
   <link rel="stylesheet" href="./styles/main.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link rel="shortcut icon" href="./images/tetrisImage.png">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="../images/tetrisImage.png">
+  <link href="https://fonts.googleapis.com/css2?family=Play&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
   <script src="./scripts/app.js"></script>
   <title>Tetris</title>
 </head>
@@ -23,7 +24,7 @@
           <li>Use the arrow keys to play the game</li>
           <li>Points are scored when a row is completed</li>
           <li>Clearing multiple rows will score bonus points</li>
-          <li>The game will become more difficult as you score more points</li>
+          <li>Difficulty will increase as you score more points</li>
         </ul>
         <p class="emphasise">Your actions will affect the way the page is styled</p>
         <p class="emphasise"> Good luck and enjoy!</p>
@@ -31,11 +32,11 @@
       </div>
       <div class="stop-game hidden">
         <h2>Your game has come to an end</h2>
-        <h3>Here are some of your game stats</h3>
-        <p class="final-score hidden">You scored <span class="current-score"></span> points</p>
+        <p class="emphasise">Here are some of your game stats</p>
+        <p class="final-score">You scored <span class="current-score">0</span> points</p>
         <p class="final-rows hidden">And you cleared <span class="rows-cleared"></span> rows</p>
         <p class="final-tetronimos hidden">In total <span class="tetronimos-dropped"></span> tetronimos were dropped</p>
-        <p class="final-rotations hidden">...and you performed <span class="rotations"></span> tetronimo rotations</p>
+        <p class="final-rotations hidden">...and you performed <span class="rotations"></span> rotations</p>
         <button class='play-again control'>Play again</button>
       </div>
 
@@ -43,8 +44,8 @@
         <button id="stop" class="hidden stop control">Stop</button>
         <div class="grid hidden"></div>
         <div class="scoreboard hidden">
-          <h3>Score</h3> 
-          <p><span class="current-score">0</span></p>
+          <h3 class="emphasise">Score</h3> 
+          <p class="emphasise"<span class="current-score">0</span></p>
 
           <!-- <div class="square tetronimo-cleared"></div>
           <div class="bar tetronimo-cleared"></div>
