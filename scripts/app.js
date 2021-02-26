@@ -27,8 +27,11 @@ function init() {
   const stopScoreboard = document.querySelector('.stop-game')
   const game = document.querySelector('.game')
   const playAgainButton = document.querySelector('.play-again')
-  
-  
+  const finalScore = document.querySelector('.final-score')
+  const finalRows = document.querySelector('.final-rows')
+  const finalTetronimos = document.querySelector('.final-tetronimos')
+  const finalRotations = document.querySelector('.final-rotations')
+
 
   
 
@@ -187,7 +190,7 @@ function init() {
         }
         tetronimosDropped.forEach(span => {
           span.innerText = tetrominoCount
-          span.classList.remove('hidden')
+          finalTetronimos.classList.remove('hidden')
         })
       } else if (tetrominoPosition.some(space => cells[space + gridWidth].classList.contains('set'))) {
         addTetromino(tetrominoPosition,shape,orientation)
@@ -209,7 +212,7 @@ function init() {
         }
         tetronimosDropped.forEach(span => {
           span.innerText = tetrominoCount
-          span.classList.remove('hidden')
+          finalTetronimos.classList.remove('hidden')
         })
     
       } else {
@@ -244,7 +247,7 @@ function init() {
     } else if (key === 38) {
       rotationCount++
       rotations.forEach((rotation => rotation.innerText = rotationCount))
-      rotations.forEach((rotation => rotation.classList.remove('hidden')))
+      finalRotations.classList.remove('hidden')
       event.preventDefault()
       removeTetromino(tetrominoPosition,shape,orientation)
       if (orientation < 3){
@@ -376,7 +379,7 @@ function init() {
           scoringRowCount += 1
           clearedRows++
           rowsCleared.forEach(rowCleared => rowCleared.innerText = clearedRows)
-          rowsCleared.forEach(rowCleared => rowCleared.classList.remove('hidden'))
+          finalRotations.classList.remove('hidden')
         }
       }
     }
@@ -387,7 +390,7 @@ function init() {
       console.log('That\'s a Tetris!')
     }
     scoreSpan.forEach(span => span.innerText = score)
-    scoreSpan.forEach(span => span.classList.remove('hidden'))
+    finalScore.classList.remove('hidden')
   }
   
 
