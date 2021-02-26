@@ -1,5 +1,4 @@
 body {
-  /* display: flex; */
   align-content: center;
   margin: 20px auto;
   padding: 0, 30px;
@@ -22,7 +21,7 @@ body {
 main {
   border: 1px solid rgb(71, 71, 71);
   border-radius: 100px;
-  max-width: 80%;
+  max-width: 75%;
   align-content: center;
   margin: 3% auto;
   background-color: rgba(255, 255, 255,0.5);
@@ -38,7 +37,7 @@ button {
 
 .cell {
   background-image: radial-gradient(rgba(250, 249, 249,0.1), rgba(253, 253, 253,0.2s));
-  border: 1px dashed rgba(107, 107, 107, 0.1);
+  border: 1px dashed rgba(196, 196, 196, 0.1);
 }
 
 .shape {
@@ -111,7 +110,7 @@ button {
 
 .game {
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   align-content: center;
 
 }

@@ -33,7 +33,6 @@ function init() {
   const finalRotations = document.querySelector('.final-rotations')
   const topScore = document.querySelector('#top-score')
   const newTopScore = document.querySelector('.new-top-score')
-  // console.log(finalScore)
 
   const myStorage = window.localStorage
 
@@ -146,6 +145,8 @@ function init() {
   hero.classList.add(`${activeShape.name}`)
   startButton.classList.add(`${activeShape.name}`)
   instructions.classList.add(`${nextShape.name}`)
+
+  topScore.innerText = myStorage.getItem('topScore')
 
   let arrayStartingPosition
   let shape
@@ -331,7 +332,7 @@ function init() {
     return tilesArray
   }
 
-  // Buttons!
+  //* Buttons
 
 
   startButton.addEventListener('click',dropTetromino)
@@ -381,6 +382,7 @@ function init() {
             }
           })
           score += 100
+
           updateStyling(score,'rowsCleared')
           if (score % 500 === 0) {
             gameSpeed = gameSpeed * .7
